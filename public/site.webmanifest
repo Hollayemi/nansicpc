@@ -1,0 +1,17 @@
+{
+  "name": "National Association of Nigerian Students",
+  "short_name": "NANS Nigeria",
+  "description": "Official website of NANS — Nigeria's apex student body since 1956.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#008751",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-NG",
+  "categories": ["education", "government"],
+  "icons": [
+    { "src": "/icon-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

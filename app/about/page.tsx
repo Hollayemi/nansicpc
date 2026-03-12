@@ -1,6 +1,7 @@
 import React from "react";
 import Wrapper from "../components/wrapper";
 import Link from "next/link";
+import { StepCard } from "../nans-icpc/page";
 
 const SectionHeader: React.FC<{ label: string; title: string; subtitle?: string }> = ({
   label,
@@ -25,12 +26,36 @@ const SectionHeader: React.FC<{ label: string; title: string; subtitle?: string 
 );
 
 const executives = [
-  { title: "National President", name: "Comrade Lucky Ikhide", zone: "Zone F (Southsouth)", initials: "LI" },
-  { title: "Senate President", name: "Comrade Oluwaseun Adebayo", zone: "Zone E (Southwest)", initials: "OA" },
-  { title: "Secretary-General", name: "Comrade Fatimah Lawal", zone: "Zone B (Northeast)", initials: "FL" },
-  { title: "PRO", name: "Comrade Emeka Okafor", zone: "Zone D (Southeast)", initials: "EO" },
-  { title: "Financial Secretary", name: "Comrade Hauwa Ibrahim", zone: "Zone A (Northwest)", initials: "HI" },
-  { title: "Welfare Director", name: "Comrade Daniel Ushie", zone: "Zone C (Northcentral)", initials: "DU" },
+  { 
+    title: "National President", 
+    name: "Comrade Olushola Oladoja", 
+    zone: "Zone C (North Central)", 
+    initials: "OO" 
+  },
+  { 
+    title: "Senate President", 
+    name: "Senator Adamu Don Manu", 
+    zone: "Zone A (North West)", 
+    initials: "ADM" 
+  },
+  { 
+    title: "Secretary-General", 
+    name: "Comrade Anzaku Shedrack", 
+    zone: "Zone C (North Central)", 
+    initials: "AS" 
+  },
+  { 
+    title: "Public Relations Officer (PRO)", 
+    name: "Comrade Adeyemi Samson", 
+    zone: "Zone D (South West)", 
+    initials: "AS" 
+  },
+  { 
+    title: "Assistant Secretary-General", 
+    name: "Comrade Adejuwon Olatunji", 
+    zone: "Zone D (South West)", 
+    initials: "AO" 
+  }
 ];
 
 const milestones = [
@@ -39,9 +64,9 @@ const milestones = [
   { year: "1978", event: "NANS leads nationwide protests against military education policies (Ali Must Go)" },
   { year: "1989", event: "NANS officially recognised by the Federal Government of Nigeria" },
   { year: "1999", event: "NANS reorganised into 6 geopolitical zones following Nigeria's return to democracy" },
-  { year: "2015", event: "Launch of the NANS-ICPC Anti-Corruption Partnership on Nigerian campuses" },
-  { year: "2023", event: "NANS Digital Governance Initiative, online voter registration launched" },
-  { year: "2026", event: "2026 NANS Presidential Election, the most transparent electoral cycle in history" },
+  { year: "2010", event: "NANS Digital Student Welfare Initiative launched across all six geopolitical zones" },
+  { year: "2023", event: "NANS Digital Governance Initiative — online delegate registration and accreditation portal launched" },
+  { year: "2026", event: "2026 NANS National Convention, organised by the Independent Convention Planning Committee (ICPC)" },
 ];
 
 const About: React.FC = () => (
@@ -95,7 +120,7 @@ const About: React.FC = () => (
             {
               icon: "⚖️",
               title: "Core Values",
-              body: "Democracy · Transparency · Accountability · Solidarity · Patriotism · Student Welfare · Academic Freedom · Zero Tolerance for Corruption",
+              body: "Democracy · Transparency · Accountability · Solidarity · Patriotism · Student Welfare · Academic Freedom · National Unity",
             },
           ].map((item) => (
             <div
@@ -122,6 +147,37 @@ const About: React.FC = () => (
       </div>
     </section>
 
+        <section className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          label="objective of the NANS"
+          title="Six Pillars of Student Advocacy"
+          subtitle="NANS is committed to championing the rights and welfare of Nigerian students through these core objectives."
+        />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {[
+            "Protecting and promoting the welfare of Nigerian students",
+"Advocating for improved educational standards",
+
+"Providing a unified platform for student representation",
+
+"Promoting national unity and leadership development among students",
+
+"Engaging government and stakeholders on educational reforms",
+
+"The association operates through an elected leadership structure that emerges through democratic conventions held periodically.",
+          ].map((m, i) => (
+          <StepCard
+            step={`0${i + 1}`}
+            active
+            description={m}
+            />
+          ))}
+         
+        </div>
+      </div>
+    </section>
+
     {/* History */}
     <section className="py-20" style={{ backgroundColor: "#f0fdf4" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -136,7 +192,7 @@ const About: React.FC = () => (
             style={{ backgroundColor: "#d4eadb" }}
           />
           <div className="space-y-6">
-            {milestones.map((m, i) => (
+            {milestones.map((m) => (
               <div key={m.year} className="flex gap-6 items-start">
                 <div
                   className="w-12 h-12 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0 z-10 border-2"
@@ -214,9 +270,7 @@ const About: React.FC = () => (
                   </p>
                   <p className="text-white/80 text-xs">{z.region}</p>
                 </div>
-                <div
-                  className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold"
-                >
+                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold">
                   {z.states.length}
                 </div>
               </div>
@@ -238,7 +292,7 @@ const About: React.FC = () => (
         <SectionHeader
           label="Leadership"
           title="Current National Executive Council"
-          subtitle="Elected representatives steering NANS affairs for the 2024–2026 session."
+          subtitle="Elected representatives steering NANS affairs for the 2024–2025 session."
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {executives.map((exec) => (
@@ -284,15 +338,15 @@ const About: React.FC = () => (
           {[
             {
               body: "Joint Consultative Council (JCC)",
-              desc: "The supreme decision-making body of NANS, comprising all zonal presidents and national executive members. The JCC meets quarterly and ratifies all major policies.",
+              desc: "The supreme decision-making body of NANS, comprising all zonal presidents and national executive members. The JCC meets quarterly and ratifies all major policies, including the constitution of the ICPC for each convention cycle.",
             },
             {
               body: "National Executive Council (NEC)",
-              desc: "The administrative arm responsible for day-to-day operations, programme implementation, and zonal coordination. NEC meets monthly.",
+              desc: "The administrative arm responsible for day-to-day operations, programme implementation, and zonal coordination. NEC meets monthly and is accountable to the JCC.",
             },
             {
-              body: "Electoral Committee",
-              desc: "An independent, impartial body responsible for organising, supervising, and adjudicating all NANS elections in accordance with the NANS Constitution.",
+              body: "Independent Convention Planning Committee (ICPC)",
+              desc: "The independent body constituted by the JCC to organise, supervise, and manage the NANS National Convention and the election of new leadership. The ICPC operates independently to ensure fairness, credibility, and neutrality.",
             },
           ].map((g) => (
             <div
@@ -309,6 +363,28 @@ const About: React.FC = () => (
               <p className="text-gray-600 text-sm leading-relaxed">{g.desc}</p>
             </div>
           ))}
+        </div>
+
+        {/* ICPC CTA */}
+        <div
+          className="mt-8 rounded-2xl p-6 border flex flex-col sm:flex-row items-center justify-between gap-4"
+          style={{ borderColor: "#d4eadb", backgroundColor: "#f8fdf9" }}
+        >
+          <div>
+            <p className="font-bold text-gray-900 mb-1" style={{ fontFamily: "'Crimson Pro', serif" }}>
+              The ICPC is currently managing the 2026 National Convention.
+            </p>
+            <p className="text-gray-500 text-sm">
+              Learn about the committee's mandate, responsibilities, and the full convention process.
+            </p>
+          </div>
+          <Link
+            href="/nans-icpc"
+            className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold text-white rounded-lg transition-all hover:opacity-90 flex-shrink-0"
+            style={{ backgroundColor: "#008751" }}
+          >
+            About the ICPC →
+          </Link>
         </div>
       </div>
     </section>

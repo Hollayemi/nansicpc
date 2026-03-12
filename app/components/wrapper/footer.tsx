@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
   const quickLinks = [
     { name: "Home", path: "/" },
     { name: "About NANS", path: "/about" },
-    { name: "NANS-ICPC Partnership", path: "/nans-icpc" },
+    { name: "NANS-ICPC", path: "/nans-icpc" },
     { name: "Election Overview", path: "/election-overview" },
     { name: "Candidates", path: "/candidates" },
     { name: "Election Schedule", path: "/election-schedule" },
@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
             {/* Brand column */}
             <div className="lg:col-span-1">
               <div className="flex items-center gap-3 mb-4">
-                 <img src="/images/logo.png" alt="NANS Emblem" className="w-14 h-14 rounded-full flex-shrink-0 bg-white" />
+                <img src="/images/logo.png" alt="NANS Emblem" className="w-14 h-14 rounded-full flex-shrink-0 bg-white" />
                 <div>
                   <p className="font-bold text-lg tracking-widest" style={{ fontFamily: "'Crimson Pro', serif", color: "#C8A000" }}>
                     N·A·N·S
@@ -158,6 +158,28 @@ const Footer: React.FC = () => {
                 </li>
               </ul>
             </div>
+          </div>
+        </div>
+
+        {/* ICPC notice strip */}
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.05)", backgroundColor: "#061506" }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-center gap-2">
+            <span
+              className="text-xs font-bold px-2 py-0.5 rounded"
+              style={{ backgroundColor: "#008751", color: "white" }}
+            >
+              ICPC
+            </span>
+            <p className="text-gray-500 text-xs">
+              The Independent Convention Planning Committee is currently managing the 2026 NANS National Convention.
+            </p>
+            <Link
+              href="/nans-icpc"
+              className="text-xs font-semibold flex-shrink-0"
+              style={{ color: "#C8A000" }}
+            >
+              Learn more →
+            </Link>
           </div>
         </div>
 

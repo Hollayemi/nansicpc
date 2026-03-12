@@ -19,55 +19,52 @@ interface Partner {
 }
 
 const partners: Partner[] = [
-  // Strategic
   {
     id: 1,
-    name: "Independent Corrupt Practices and Other Related Offences Commission",
-    acronym: "ICPC",
-    tier: "strategic",
-    description:
-      "NANS' foremost anti-corruption partner. The ICPC-NANS MOU anchors the Anti-Corruption Vanguard (ACV) programme operating on over 200 Nigerian campuses, building a culture of integrity in student governance.",
-    category: "Federal Government Agency",
-    since: "2015",
-    website: "https://www.icpc.gov.ng",
-    icon: "/icpc-logo.jpg",
-    color: "#008751",
-  },
-  {
-    id: 2,
     name: "Federal Ministry of Education",
     acronym: "FMoE",
     tier: "strategic",
     description:
-      "The NANS–Federal Ministry of Education engagement ensures student perspectives are heard in policy formulation, education budget consultations, and curriculum development dialogues.",
+      "The NANS–Federal Ministry of Education engagement ensures student perspectives are heard in policy formulation, education budget consultations, and curriculum development dialogues at the federal level.",
     category: "Federal Ministry",
     since: "1989",
-    icon: "/education-logo.jpg",
+    icon: "/nycn-logo.jpg",
     color: "#005c37",
   },
   {
-    id: 3,
+    id: 2,
     name: "National Universities Commission",
     acronym: "NUC",
     tier: "strategic",
     description:
-      "NANS works with the NUC on accreditation transparency, institutional quality assurance, and student representation in university governance frameworks.",
+      "NANS works with the NUC on accreditation transparency, institutional quality assurance, and student representation in university governance frameworks across Nigeria.",
     category: "Regulatory Body",
     since: "1999",
     icon: "/nuc-logo.jpg",
     color: "#007a45",
   },
   {
-    id: 4,
+    id: 3,
     name: "Education Trust Fund / TETFUND",
     acronym: "TETFUND",
     tier: "strategic",
     description:
-      "NANS advocates for TETFUND budget accountability and equitable distribution of infrastructural grants across all Nigerian tertiary institutions.",
+      "NANS advocates for TETFUND budget accountability and equitable distribution of infrastructural grants across all Nigerian tertiary institutions, championing student welfare through better facilities.",
     category: "Federal Government Agency",
     since: "2003",
     icon: "/tetfund-logo.jpg",
     color: "#008751",
+  },
+  {
+    id: 4,
+    name: "National Youth Council of Nigeria",
+    acronym: "NYCN",
+    tier: "strategic",
+    description:
+      "A key national partnership that enables NANS to engage broader youth policy advocacy, coordinate with other youth-led organisations, and amplify the Nigerian student voice at the highest levels.",
+    category: "Federal Government Agency",
+    since: "2001",
+    color: "#006B3E",
   },
 ];
 
@@ -97,7 +94,6 @@ const PartnerCard: React.FC<{ partner: Partner }> = ({ partner: p }) => {
     >
       <div className="h-1.5" style={{ backgroundColor: p.color }} />
       <div className="p-6 flex-1 flex flex-col">
-        {/* Logo placeholder + acronym */}
         <div className="flex items-start gap-4 mb-4">
           <div
             className="w-14 h-14 rounded-xl flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
@@ -225,6 +221,32 @@ const Partners: React.FC = () => {
         </div>
       </section>
 
+      {/* Convention partners notice */}
+      <section className="py-6 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div
+            className="rounded-xl p-5 border-l-4 flex flex-col sm:flex-row items-start sm:items-center gap-4"
+            style={{ borderLeftColor: "#C8A000", backgroundColor: "#fdfdf0" }}
+          >
+            <div className="flex-1">
+              <p className="font-bold text-gray-800 text-sm mb-1">
+                🤝 Convention Support Partners
+              </p>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                The successful organisation of the NANS National Convention is made possible through the support of institutions, organisations, and individuals who believe in the empowerment and development of Nigerian students — supporting convention logistics, delegate participation, and media coverage.
+              </p>
+            </div>
+            <a
+              href="mailto:partnerships@nans.org.ng"
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white rounded-lg transition-all hover:opacity-90 flex-shrink-0"
+              style={{ backgroundColor: "#008751" }}
+            >
+              Become a Sponsor →
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Strategic partners spotlight */}
       {activeTier === "all" && (
         <section className="py-16" style={{ backgroundColor: "#f0fdf4" }}>
@@ -258,12 +280,7 @@ const Partners: React.FC = () => {
                     className="px-6 py-5 flex items-center gap-4 text-white"
                     style={{ background: `linear-gradient(135deg, ${p.color}, #002e1c)` }}
                   >
-                    {/* <div
-                      className="w-14 h-14 rounded-xl flex items-center justify-center text-white font-bold text-sm flex-shrink-0 bg-white/20"
-                    >
-                      {p.acronym.slice(0, 4)}
-                    </div> */}
-                    <img src={p.icon} alt={`${p.acronym} logo`} className="w-14 h-14 object-contain" />
+                    <img src={p.icon} alt="NANS Emblem" className="w-14 h-14 rounded-full flex-shrink-0" />
                     <div>
                       <h3
                         className="font-bold text-lg leading-snug"
@@ -300,6 +317,36 @@ const Partners: React.FC = () => {
         </section>
       )}
 
+      {/* All partners grid */}
+      {activeTier !== "all" && (
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {filtered.length > 0 ? (
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filtered.map((p) => (
+                  <PartnerCard key={p.id} partner={p} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-20">
+                <p className="text-gray-400 text-4xl mb-4">🤝</p>
+                <p className="font-semibold text-gray-600 mb-1">No partners in this category yet</p>
+                <p className="text-gray-400 text-sm mb-4">
+                  Interested in partnering with NANS in this capacity?
+                </p>
+                <a
+                  href="mailto:partnerships@nans.org.ng"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold text-white rounded-lg"
+                  style={{ backgroundColor: "#008751" }}
+                >
+                  Submit a Partnership Proposal →
+                </a>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* Become a partner */}
       <section
         className="relative py-16 overflow-hidden"
@@ -326,7 +373,7 @@ const Partners: React.FC = () => {
             Collaborate with NANS
           </h2>
           <p className="text-green-100 text-base mb-8 max-w-2xl mx-auto leading-relaxed">
-            Whether you are a government agency, private company, NGO, or academic institution, a partnership with NANS connects you with over 5 million students and 200+ institutions across Nigeria.
+            Whether you are a government agency, private company, NGO, or academic institution — a partnership with NANS connects you with over 5 million students and 200+ institutions across Nigeria. Organisations can also support the NANS National Convention through logistics, media, and delegate participation sponsorships.
           </p>
           <div className="grid sm:grid-cols-3 gap-4 mb-10 text-left">
             {[
@@ -343,7 +390,7 @@ const Partners: React.FC = () => {
               {
                 icon: "🏢",
                 title: "Corporate Organisations",
-                desc: "CSR programmes, internship pipelines, and brand presence among Nigeria's student population.",
+                desc: "CSR programmes, convention sponsorships, and brand presence among Nigeria's student population.",
               },
             ].map((b) => (
               <div

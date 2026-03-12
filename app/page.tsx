@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "./components/wrapper";
 import Link from "next/link";
 
-// --- (keep useCountUp and StatCard unchanged) ---
 const useCountUp = (target: number, duration = 2000) => {
   const [count, setCount] = useState(0);
   const ref = useRef(false);
@@ -49,7 +48,6 @@ const StatCard: React.FC<{ value: number; suffix: string; label: string; delay?:
   );
 };
 
-
 const NewsItem: React.FC<{ tag: string; date: string; title: string; excerpt: string }> = ({
   tag,
   date,
@@ -71,36 +69,24 @@ const NewsItem: React.FC<{ tag: string; date: string; title: string; excerpt: st
   </article>
 );
 
-
 const HERO_IMAGES = [
-  "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&q=80",
-  "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600&q=80",
-  "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600&q=80",
-  "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=1600&q=80",
-  "https://images.unsplash.com/photo-1627556704302-624286467c65?w=1600&q=80",
+  "/images/students1.jpg",
+  "/images/students2.jpg",
+  "/images/students3.jpg",
+  "/images/students4.jpg",
 ];
 
 const Home: React.FC = () => {
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [activeSlide, setActiveSlide] = useState(0);
-  const [prevSlide, setPrevSlide] = useState<number | null>(null);
-  const [transitioning, setTransitioning] = useState(false);
 
-  // Carousel auto-advance
   useEffect(() => {
     const id = setInterval(() => {
-      setPrevSlide(activeSlide);
-      setTransitioning(true);
       setActiveSlide((s) => (s + 1) % HERO_IMAGES.length);
-      setTimeout(() => {
-        setPrevSlide(null);
-        setTransitioning(false);
-      }, 1200);
     }, 5000);
     return () => clearInterval(id);
-  }, [activeSlide]);
+  }, []);
 
-  // Countdown (unchanged)
   useEffect(() => {
     const electionDate = new Date("2026-07-15T08:00:00");
     const tick = () => {
@@ -120,11 +106,8 @@ const Home: React.FC = () => {
 
   return (
     <Wrapper>
-
       {/* ── Hero ── */}
       <section className="relative overflow-hidden" style={{ minHeight: "80vh" }}>
-
-        {/* ── CAROUSEL LAYER ── */}
         {HERO_IMAGES.map((src, i) => (
           <div
             key={src}
@@ -137,14 +120,10 @@ const Home: React.FC = () => {
             }}
           />
         ))}
-
-        {/* ── EXISTING overlays (preserved, layered on top of carousel) ── */}
-        {/* Deep green tint — increase opacity to taste (0.72 keeps images visible) */}
         <div
           className="absolute inset-0"
           style={{ backgroundColor: "rgba(0, 87, 51, 0.72)", zIndex: 1 }}
         />
-        {/* Radial gradients */}
         <div
           className="absolute inset-0"
           style={{
@@ -153,7 +132,6 @@ const Home: React.FC = () => {
             zIndex: 2,
           }}
         />
-        {/* Diagonal stripe texture */}
         <div
           className="absolute inset-0 opacity-5"
           style={{
@@ -162,7 +140,6 @@ const Home: React.FC = () => {
             zIndex: 3,
           }}
         />
-        {/* NANS watermark */}
         <div
           className="absolute right-0 bottom-0 text-white opacity-5 font-bold leading-none select-none pointer-events-none overflow-hidden"
           style={{
@@ -174,7 +151,7 @@ const Home: React.FC = () => {
           NANS
         </div>
 
-        {/* ── Carousel dot indicators ── */}
+        {/* Carousel dots */}
         <div
           className="absolute bottom-16 left-1/2 -translate-x-1/2 flex items-center gap-2"
           style={{ zIndex: 10 }}
@@ -182,12 +159,7 @@ const Home: React.FC = () => {
           {HERO_IMAGES.map((_, i) => (
             <button
               key={i}
-              onClick={() => {
-                setPrevSlide(activeSlide);
-                setTransitioning(true);
-                setActiveSlide(i);
-                setTimeout(() => { setPrevSlide(null); setTransitioning(false); }, 1200);
-              }}
+              onClick={() => setActiveSlide(i)}
               aria-label={`Slide ${i + 1}`}
               className="rounded-full transition-all duration-500"
               style={{
@@ -201,31 +173,31 @@ const Home: React.FC = () => {
           ))}
         </div>
 
-        {/* ── All existing hero content (z-index raised above overlays) ── */}
         <div
           className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-15 pb-18 md:pb-4 flex flex-col lg:flex-row items-center gap-12"
           style={{ zIndex: 5 }}
         >
-          {/* Text side */}
           <div className="flex-1 text-white max-w-2xl">
             <div
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-6 border"
               style={{ borderColor: "#C8A000", color: "#C8A000", backgroundColor: "rgba(200,160,0,0.1)" }}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
-              2026 NANS Presidential Election Registration Open
+              2026 NANS National Convention — Now Underway
             </div>
             <h1
-              className="text-5xl sm:text-6xl lg:text-6xl font-bold leading-tight mb-6"
-              style={{ fontFamily: "'Crimson Pro', serif" }}
-            >
-              The Voice of
-              <br />
-              <span className="mr-3" style={{ color: "#C8A000" }}>Nigerian</span>
-              Students
-            </h1>
+          className="text-5xl sm:text-6xl font-bold mb-4"
+          style={{ fontFamily: "'Crimson Pro', serif" }}
+        >
+          Independent
+          <br />
+          <span style={{ color: "#C8A000" }}>Convention</span>
+          <br />
+          Planning Committee
+        </h1>
             <p className="text-green-100 text-lg leading-relaxed mb-8 max-w-lg">
-              Nigeria's apex student body since 1956, championing education, welfare, and democratic student governance across all tertiary institutions.
+              Welcome to the Official Website of the NANS Independent Convention Planning Committee (ICPC)
+
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
@@ -244,7 +216,7 @@ const Home: React.FC = () => {
             </div>
           </div>
 
-          {/* Countdown card (unchanged) */}
+          {/* Countdown */}
           <div className="flex-shrink-0">
             <div
               className="rounded-2xl overflow-hidden shadow-2xl"
@@ -254,7 +226,7 @@ const Home: React.FC = () => {
                 className="px-6 py-3 text-white text-center text-sm font-semibold tracking-wide"
                 style={{ backgroundColor: "#005c37" }}
               >
-                ⏱ Election Countdown
+                ⏱ Convention Countdown
               </div>
               <div className="px-6 py-6">
                 <div className="grid grid-cols-4 gap-3 mb-4">
@@ -280,7 +252,7 @@ const Home: React.FC = () => {
                   ))}
                 </div>
                 <div className="text-center">
-                  <p className="text-xs text-gray-500 mb-1">Election Day</p>
+                  <p className="text-xs text-gray-500 mb-1">Convention Day</p>
                   <p className="font-bold text-gray-800">July 15, 2026</p>
                   <p className="text-xs text-gray-500">8:00 AM WAT</p>
                 </div>
@@ -296,7 +268,6 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom wave (unchanged) */}
         <div className="absolute border-0 bottom-0 left-0 right-0" style={{ zIndex: 6 }}>
           <svg viewBox="0 0 1440 60" fill="white" xmlns="http://www.w3.org/2000/svg" className="w-full">
             <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" />
@@ -304,7 +275,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ── Stats bar ── */}
+      {/* Stats bar */}
       <section className="py-12 bg-white border-b" style={{ borderColor: "#e5f0e5" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -316,7 +287,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ── About snippet ── */}
+      {/* About snippet */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -335,11 +306,13 @@ const Home: React.FC = () => {
                 <br />Student Organisation
               </h2>
               <p className="text-gray-600 leading-relaxed mb-4">
-                Founded in 1956, the National Association of Nigerian Students (NANS) is the umbrella body uniting all student unions across Nigerian universities, polytechnics, and colleges. NANS is the recognised voice of Nigerian students before the Federal Government, state governments, and international bodies.
+                The National Association of Nigerian Students (NANS) Independent Convention Planning Committee (ICPC) is responsible for organizing and coordinating the National Convention for the emergence of new leadership of the association.
               </p>
               <p className="text-gray-600 leading-relaxed mb-8">
-                Through its six zonal structures, NANS coordinates student advocacy, monitors educational policies, and champions the rights, welfare, and academic interests of over five million students across Nigeria.
-              </p>
+                This platform serves as the official digital hub for all activities related to the forthcoming NANS National Convention and elections. Through this website, stakeholders can access verified information on the election process, candidates, schedules, and official updates from the committee.
+
+Our goal is to ensure a transparent, credible, and well-coordinated convention that reflects the democratic ideals of Nigerian students.
+                 </p>
               <Link
                 href="/about"
                 className="inline-flex items-center gap-2 font-semibold text-sm transition-colors hover:gap-3"
@@ -350,7 +323,6 @@ const Home: React.FC = () => {
               </Link>
             </div>
 
-            {/* Zones grid */}
             <div className="grid grid-cols-2 gap-3">
               {[
                 { zone: "Zone A", region: "Northwest", states: "Kano, Kaduna, Sokoto..." },
@@ -383,13 +355,9 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ── Election Spotlight ── */}
+      {/* Election Spotlight */}
       <section className="py-20 relative">
-         {/* ── CAROUSEL LAYER ── */}
-        {[
-          "/images/vote1.jpg",
-          "/images/vote2.jpg",
-        ].map((src, i) => (
+        {["/images/vote1.jpg", "/images/vote2.jpg"].map((src, i) => (
           <div
             key={src}
             className="absolute inset-0 bg-cover bg-center"
@@ -402,13 +370,10 @@ const Home: React.FC = () => {
             }}
           />
         ))}
-          {/* Overlay */}
-          <div className="w-full h-full absolute top-0 left-0 opacity-60 bg-green-900 z-40" />
+        <div className="w-full h-full absolute top-0 left-0 opacity-60 bg-green-900 z-40" />
         <div className="max-w-7xl relative mx-auto z-50 px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span
-              className="inline-block text-xs font-bold tracking-[0.2em] uppercase mb-3 text-green-200"
-            >
+            <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase mb-3 text-green-200">
               2026 General Elections
             </span>
             <h2
@@ -473,7 +438,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ── News + ICPC ── */}
+      {/* News + ICPC highlight */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-5 gap-12">
@@ -493,10 +458,10 @@ const Home: React.FC = () => {
               </h2>
               <div className="space-y-5">
                 <NewsItem
-                  tag="JCC"
+                  tag="ICPC"
                   date="June 10, 2026"
-                  title="JCC Approves 2026 Electoral Guidelines and New Voter Registration Begins"
-                  excerpt="The NANS Joint Consultative Council has ratified the updated electoral guidelines for the 2026 general elections, with voter registration commencing June 20."
+                  title="ICPC Inaugurated — 2026 Convention Planning Officially Begins"
+                  excerpt="The NANS Independent Convention Planning Committee has been formally inaugurated. The committee has published the official electoral guidelines and opened the nominations window."
                 />
                 <NewsItem
                   tag="EDU"
@@ -505,16 +470,16 @@ const Home: React.FC = () => {
                   excerpt="The NANS National Executive Council held a productive session with the Honourable Minister of Education on the resolution of outstanding ASUU issues."
                 />
                 <NewsItem
-                  tag="ICPC"
-                  date="May 15, 2026"
-                  title="NANS-ICPC Anti-Corruption Vanguard Expands to 50 New Campuses"
-                  excerpt="The partnership programme aimed at promoting integrity and transparency in student governance has been extended to fifty additional tertiary institutions nationwide."
+                  tag="NOM"
+                  date="June 1, 2026"
+                  title="Nomination Forms Now Available — Deadline June 14"
+                  excerpt="The ICPC has commenced the sale and collection of nomination forms for all elective positions. Aspirants are reminded to submit all required documents before the June 14 deadline."
                 />
                 <NewsItem
-                  tag="WLF"
-                  date="April 30, 2026"
-                  title="NANS Student Welfare Summit 2026, Registration Now Open"
-                  excerpt="The annual student welfare summit brings together student union leaders, university management, and government officials to address pressing welfare concerns."
+                  tag="DEL"
+                  date="May 15, 2026"
+                  title="Delegate Accreditation Portal Opens — All Institutions to Register"
+                  excerpt="The ICPC has opened the delegate accreditation portal. All NANS-affiliated institutions are required to register their delegates ahead of the National Convention."
                 />
               </div>
             </div>
@@ -532,29 +497,33 @@ const Home: React.FC = () => {
                   }}
                 >
                   <div className="flex items-center gap-3 mb-3">
-                    <img src="/icpc-logo.jpg" alt={`logo`} className="w-14 rounded-full h-14 object-contain" />
+                    <img src="/icpc-logo.jpg" alt="NANS Emblem" className="w-14 h-14 rounded-full flex-shrink-0" />
                     <div>
-                      <p className="font-bold text-sm">NANS–ICPC</p>
-                      <p className="text-green-200 text-xs">Anti-Corruption Partnership</p>
+                      <p className="font-bold text-sm">NANS ICPC</p>
+                      <p className="text-green-200 text-xs">
+                        Independent Convention Planning Committee
+                      </p>
                     </div>
                   </div>
                   <h3
                     className="text-xl font-bold leading-snug"
                     style={{ fontFamily: "'Crimson Pro', serif" }}
                   >
-                    Building Integrity in Nigerian Student Governance
+                    Organising a Free, Fair & Credible Convention
                   </h3>
                 </div>
                 <div className="p-6 flex-1" style={{ backgroundColor: "#f8fdf9" }}>
                   <p className="text-gray-600 text-sm leading-relaxed mb-5">
-                    NANS partners with the Independent Corrupt Practices and Other Related Offences Commission (ICPC) to embed a culture of transparency, accountability, and zero tolerance for corruption across Nigerian campuses.
+                    The NANS Independent Convention Planning Committee (ICPC) is the constituted body
+                    responsible for planning and supervising the 2026 NANS National Convention and the
+                    emergence of new student leadership — operating with full independence and neutrality.
                   </p>
                   <ul className="space-y-3 mb-6">
                     {[
-                      "Anti-Corruption Vanguards on 200+ campuses",
-                      "Annual Integrity Awards for student unions",
-                      "Campus Ethics Awareness Campaigns",
-                      "Transparent Election Monitoring Framework",
+                      "Issues nomination forms & publishes electoral guidelines",
+                      "Screens and certifies all eligible candidates",
+                      "Accredits delegates from all 200+ affiliated institutions",
+                      "Manages convention, voting, counting & declaration",
                     ].map((item) => (
                       <li key={item} className="flex items-start gap-2 text-sm text-gray-700">
                         <span
@@ -572,7 +541,7 @@ const Home: React.FC = () => {
                     className="inline-flex items-center justify-center gap-2 w-full py-2.5 text-sm font-semibold text-white rounded-lg transition-all hover:opacity-90"
                     style={{ backgroundColor: "#008751" }}
                   >
-                    Learn About NANS-ICPC
+                    Learn About the ICPC →
                   </Link>
                 </div>
               </div>
@@ -581,7 +550,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ── CTA banner ── */}
+      {/* CTA banner */}
       <section
         className="relative py-16 overflow-hidden"
         style={{ backgroundColor: "#008751" }}
@@ -601,7 +570,7 @@ const Home: React.FC = () => {
             Your Vote Shapes Student Governance
           </h2>
           <p className="text-green-100 text-lg mb-8 max-w-2xl mx-auto">
-            Every eligible student has a voice. Participate in the 2026 NANS Elections and help elect leaders who will champion student welfare and educational excellence.
+            Every eligible delegate has a voice. Participate in the 2026 NANS National Convention and help elect leaders who will champion student welfare and educational excellence.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link

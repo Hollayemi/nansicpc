@@ -15,167 +15,153 @@ interface ScheduleEvent {
   phase: string;
   status: PhaseStatus;
   important?: boolean;
+  time?: string;
 }
 
 const events: ScheduleEvent[] = [
+  // PRE-CONVENTION ACTIVITIES
   {
     id: 1,
-    date: "April 1, 2026",
-    title: "Electoral Committee Inauguration",
-    description: "NANS JCC formally constitutes and inaugurates the Independent Electoral Committee (EC). The Returning Officer and all electoral commissioners take their oath of office.",
-    phase: "Preparation",
-    status: "completed",
-  },
-  {
-    id: 2,
-    date: "April 10, 2026",
-    title: "Publication of Electoral Guidelines",
-    description: "The EC publishes the official 2026 NANS Electoral Guidelines, including rules for campaigns, voter registration, candidate eligibility, and results declaration. All aspirants and voters are expected to read and comply.",
-    phase: "Preparation",
-    status: "completed",
-  },
-  {
-    id: 3,
-    date: "April 15, 2026",
-    endDate: "May 15, 2026",
-    title: "Voter Registration (Online & Physical)",
-    description: "All accredited student union delegates from affiliated institutions are required to register as voters. Registration is available online via the NANS portal and at designated registration points in all six zones.",
-    phase: "Voter Registration",
-    status: "completed",
-  },
-  {
-    id: 4,
-    date: "May 20, 2026",
-    title: "Publication of Provisional Voter Register",
-    description: "The EC publishes the provisional voter register. Registered delegates can verify their details and report any discrepancies within 5 working days.",
-    phase: "Voter Registration",
-    status: "completed",
-  },
-  {
-    id: 5,
-    date: "May 26, 2026",
-    title: "Final Voter Register Published",
-    description: "After review of all objections and corrections, the EC publishes the final, certified voter register. No new registrations or amendments are accepted after this date.",
-    phase: "Voter Registration",
-    status: "completed",
-  },
-  {
-    id: 6,
-    date: "June 1, 2026",
-    endDate: "June 14, 2026",
-    title: "Nomination Form Collection & Submission",
-    description: "Interested aspirants collect and submit nomination forms to the EC Secretariat. All required supporting documents must be submitted alongside the nomination form within this window.",
-    phase: "Nomination",
-    status: "completed",
-    important: true,
-  },
-  {
-    id: 7,
-    date: "June 16, 2026",
-    endDate: "June 20, 2026",
-    title: "Candidate Screening & Eligibility Verification",
-    description: "The EC conducts thorough screening of all submitted nominations. Candidates will be invited for oral interviews and document verification. Results of screening will be communicated within 48 hours.",
-    phase: "Nomination",
-    status: "completed",
-  },
-  {
-    id: 8,
-    date: "June 22, 2026",
-    title: "Publication of Cleared Candidates List",
-    description: "The EC publishes the official list of candidates cleared to contest. Any aspirant not satisfied with the outcome may file a formal written objection to the EC within 48 hours.",
-    phase: "Nomination",
-    status: "completed",
-  },
-  {
-    id: 9,
-    date: "June 25, 2026",
-    endDate: "July 5, 2026",
-    title: "Official Campaign Period",
-    description: "Cleared candidates may campaign across campuses, NANS zonal platforms, and social media. All campaigns must be peaceful and respectful. Vote-buying and character defamation are strictly prohibited under the electoral code.",
-    phase: "Campaigns",
+    date: "8 March 2026",
+    endDate: "30 March 2026",
+    title: "Opening of Convention Process",
+    description: "The Independent Convention Planning Committee (ICPC), inaugurated by NANS National President Comr. Olushola Oladoja on 8th March 2026, formally opens the 2026 NANS National Convention process. All activities related to the convention commence during this window.",
+    phase: "Pre-Convention",
     status: "ongoing",
     important: true,
   },
   {
-    id: 10,
-    date: "July 7, 2026",
-    title: "Mandatory Candidates' Town Hall (Live & Streamed)",
-    description: "All presidential and senate candidates will participate in a live, nationally streamed Town Hall moderated by the EC. The event is open to all registered student delegates and broadcast on NANS official channels.",
-    phase: "Campaigns",
+    id: 2,
+    date: "1 April 2026",
+    endDate: "7 April 2026",
+    title: "Pick-Up of Nomination / Accreditation Forms",
+    description: "All aspirants seeking elective positions and delegates from affiliated institutions may collect their nomination and accreditation forms within this window. Forms are completely FREE OF CHARGE — no aspirant is expected to pay any amount to obtain them. SUGs should liaise with their respective JCC Chairmen for form collection.",
+    phase: "Pre-Convention",
     status: "upcoming",
     important: true,
   },
   {
-    id: 11,
-    date: "July 10, 2026",
-    title: "Campaign Silence Begins",
-    description: "All campaigns — physical and digital — must cease by 11:59 PM on July 10. Violation of campaign silence is a punishable offence under the electoral code and may result in disqualification.",
-    phase: "Pre-Election",
+    id: 3,
+    date: "8 April 2026",
+    endDate: "10 April 2026",
+    title: "Submission of Completed Forms",
+    description: "Completed nomination and accreditation forms must be submitted to the ICPC within this window. All required supporting documents must accompany the forms. Late submission will not be entertained under any circumstances, and any violation of this timeline will result in automatic disqualification. Forms must be signed, stamped, and endorsed by the Student Affairs Division of each institution and submitted through the Assistant Secretary General of NANS, who serves as the Chief Accreditation Officer.",
+    phase: "Pre-Convention",
     status: "upcoming",
+    important: true,
+  },
+  {
+    id: 4,
+    date: "12 April 2026",
+    endDate: "19 April 2026",
+    title: "Physical Screening of Aspirants",
+    description: "The ICPC Screening and Verification Sub-Committee conducts the physical screening of all submitted nominations. Aspirants will be invited for in-person document verification and assessment. The ICPC's disciplinary measures apply fully during this process.",
+    phase: "Pre-Convention",
+    status: "upcoming",
+  },
+  {
+    id: 5,
+    date: "20 April 2026",
+    endDate: "27 April 2026",
+    title: "Verification of Studentship",
+    description: "The Screening and Verification Sub-Committee conducts verification of studentship for all screened aspirants. This process confirms the bona fide student status of each aspirant at their respective tertiary institutions in accordance with NANS constitutional requirements.",
+    phase: "Pre-Convention",
+    status: "upcoming",
+  },
+  {
+    id: 6,
+    date: "29 April 2026",
+    title: "Release of Screening Results",
+    description: "The ICPC releases the official results of the physical screening exercise. The list of aspirants who have been cleared and those who have not met the eligibility requirements will be formally published. Results will be communicated to all aspirants and published on official NANS channels.",
+    phase: "Pre-Convention",
+    status: "upcoming",
+    important: true,
+  },
+  {
+    id: 7,
+    date: "1 May 2026",
+    endDate: "7 May 2026",
+    title: "Appeal Window",
+    description: "Aspirants who are dissatisfied with the screening outcome may file a formal written appeal to the Screening Appeal Sub-Committee within this window. Appeals must clearly state grounds for dispute and be accompanied by all relevant supporting evidence. The Screening Appeal Sub-Committee will review all submissions fairly and impartially.",
+    phase: "Pre-Convention",
+    status: "upcoming",
+  },
+  {
+    id: 8,
+    date: "9 May 2026",
+    title: "Final Release of Appeal Results",
+    description: "The ICPC Screening Appeal Sub-Committee releases the final, binding results of all appeal hearings. Decisions at this stage are conclusive. The final list of all aspirants cleared to proceed to the convention is formally published.",
+    phase: "Pre-Convention",
+    status: "upcoming",
+    important: true,
+  },
+
+  // CONVENTION PROPER
+  {
+    id: 9,
+    date: "20 May 2026",
+    title: "Arrival of Delegates",
+    description: "Accredited delegates from all six geopolitical zones and affiliated institutions across Nigeria arrive at the convention venue — the Old Parade Ground, Abuja. Delegates are expected to check in with the ICPC Accreditation Sub-Committee upon arrival.",
+    phase: "Convention",
+    status: "upcoming",
+  },
+  {
+    id: 10,
+    date: "21 May 2026",
+    title: "Peace Accord Signing with DSS",
+    description: "A formal Peace Accord is signed between NANS candidates, delegates, and the Department of State Services (DSS) to ensure a peaceful, safe, and orderly convention. All parties commit to non-violence, fair play, and respect for the electoral process.",
+    phase: "Convention",
+    status: "upcoming",
+    important: true,
+    time: "9:00 AM – 2:00 PM",
+  },
+  {
+    id: 11,
+    date: "21 May 2026",
+    title: "Presidential Debate",
+    description: "All cleared Presidential candidates participate in a live Presidential Debate before assembled delegates and observers. Candidates present their manifestos, answer questions, and make their case for leadership of the National Association of Nigerian Students.",
+    phase: "Convention",
+    status: "upcoming",
+    important: true,
+    time: "5:00 PM",
   },
   {
     id: 12,
-    date: "July 12, 2026",
-    title: "Delegate Accreditation",
-    description: "Registered voters present at their designated polling centres for biometric accreditation. Voter cards and valid institutional identity must be presented. Accreditation runs 9:00 AM – 4:00 PM.",
-    phase: "Pre-Election",
+    date: "22 May 2026",
+    title: "Registration of Delegates & Publication of Final Accredited Delegates List",
+    description: "Delegates formally register with the ICPC. The final official list of all accredited delegates eligible to vote in the 2026 NANS National Convention is published. The convention officially opens on this date.",
+    phase: "Convention",
     status: "upcoming",
+    important: true,
   },
   {
     id: 13,
-    date: "July 14, 2026",
-    title: "EC Final Press Briefing",
-    description: "The Returning Officer holds a final press briefing to confirm electoral arrangements, logistics, and security measures. International and domestic observers are formally credentialed.",
-    phase: "Pre-Election",
+    date: "23 May 2026",
+    title: "Accreditation of Delegates",
+    description: "Registered delegates undergo formal biometric and document-based accreditation by the ICPC Accreditation Sub-Committee. Delegate voter cards and valid institutional IDs must be presented. Only accredited delegates may participate in the election proper.",
+    phase: "Convention",
     status: "upcoming",
   },
   {
     id: 14,
-    date: "July 15, 2026",
-    title: "ELECTION DAY",
-    description: "Accredited delegates cast their votes via secret ballot at designated polling centres in each of the six geopolitical zones. Voting opens at 8:00 AM and closes at 4:00 PM WAT. No extension will be granted except by court order.",
-    phase: "Election",
+    date: "24 May 2026",
+    title: "ELECTION PROPER",
+    description: "Accredited delegates cast their votes by secret ballot for all elective positions at the 2026 NANS National Convention. Voting is conducted at the Old Parade Ground, Abuja, in the presence of candidates' agents, accredited observers, and ICPC monitors. Votes are counted and collated openly immediately after polls close. The Returning Officer declares the official results.",
+    phase: "Convention",
     status: "upcoming",
     important: true,
   },
   {
     id: 15,
-    date: "July 15, 2026",
-    title: "Vote Counting & Collation",
-    description: "Votes are counted immediately after polls close at each polling centre in the presence of candidates' agents, accredited observers, and ICPC monitors. Results are collated at the national level by the Returning Officer.",
-    phase: "Election",
+    date: "25 May 2026",
+    title: "Departure of Delegates",
+    description: "Delegates from all geopolitical zones and institutions formally depart following the conclusion of the 2026 NANS National Convention. The ICPC Transport and Logistics Sub-Committee coordinates the orderly departure of all delegates.",
+    phase: "Convention",
     status: "upcoming",
-  },
-  {
-    id: 16,
-    date: "July 16, 2026",
-    title: "Declaration of Results",
-    description: "The Returning Officer formally declares the results of the NANS Presidential and Senate Presidential elections. Results are published simultaneously on the NANS official portal and notified to all NANS affiliates.",
-    phase: "Post-Election",
-    status: "upcoming",
-    important: true,
-  },
-  {
-    id: 17,
-    date: "July 17, 2026",
-    endDate: "July 19, 2026",
-    title: "Petition Window",
-    description: "Any candidate or registered voter who disputes the results may file a formal petition with the EC. Petitions must be in writing, clearly stating grounds for dispute, and accompanied by relevant evidence.",
-    phase: "Post-Election",
-    status: "upcoming",
-  },
-  {
-    id: 18,
-    date: "August 1, 2026",
-    title: "Inauguration of New NANS Leadership",
-    description: "The newly elected NANS National President and Senate President are formally inaugurated at a public ceremony witnessed by NANS affiliates, government representatives, and media. Outgoing executives hand over to incoming leadership.",
-    phase: "Inauguration",
-    status: "upcoming",
-    important: true,
   },
 ];
 
-const phases = ["All", "Preparation", "Voter Registration", "Nomination", "Campaigns", "Pre-Election", "Election", "Post-Election", "Inauguration"];
+const phases = ["All", "Pre-Convention", "Convention"];
 
 const statusConfig: Record<PhaseStatus, { dot: string; badge: string; badgeText: string; label: string }> = {
   completed: { dot: "#9ca3af", badge: "#f3f4f6", badgeText: "#6b7280", label: "Completed" },
@@ -209,20 +195,38 @@ const ElectionSchedule: React.FC = () => {
           }}
         />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-          <p className="text-green-200 text-sm font-medium mb-2">2026 NANS Elections</p>
+          <p className="text-green-200 text-sm font-medium mb-2">2026 NANS Convention</p>
           <h1
             className="text-5xl sm:text-6xl font-bold mb-4"
             style={{ fontFamily: "'Crimson Pro', serif" }}
           >
-            Election Schedule
+            Convention Schedule
           </h1>
           <p className="text-green-100 text-lg max-w-xl leading-relaxed">
-            The official electoral calendar for the 2026 NANS General Election — from committee inauguration to the inauguration of new leadership.
+            The official ICPC timetable for the 2026 NANS National Convention — from the opening of the convention process through to election day on 24th May 2026, at the Old Parade Ground, Abuja.
           </p>
           <div className="flex gap-2 mt-6 text-sm text-green-200">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
-            <span className="text-white font-medium">Election Schedule</span>
+            <span className="text-white font-medium">Convention Schedule</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Convention venue banner */}
+      <section className="py-5" style={{ backgroundColor: "#005c37" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-center gap-6 text-white text-sm">
+          <div className="flex items-center gap-2">
+            <span style={{ color: "#C8A000" }}>📍</span>
+            <span><strong>Venue:</strong> Old Parade Ground, Abuja</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span style={{ color: "#C8A000" }}>📅</span>
+            <span><strong>Convention Dates:</strong> 22nd – 25th May 2026</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span style={{ color: "#C8A000" }}>🗳️</span>
+            <span><strong>Election Day:</strong> 24th May 2026</span>
           </div>
         </div>
       </section>
@@ -292,98 +296,120 @@ const ElectionSchedule: React.FC = () => {
       {/* Timeline */}
       <section className="py-16" style={{ backgroundColor: "#f8fdf9" }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          {/* Section label */}
+          {(activePhase === "All" || activePhase === "Pre-Convention") && (
+            <div className="flex items-center gap-3 mb-6">
+              <div className="px-4 py-1.5 rounded-full text-white text-xs font-bold" style={{ backgroundColor: "#005c37" }}>
+                SECTION A — PRE-CONVENTION ACTIVITIES
+              </div>
+              <div className="flex-1 h-px" style={{ backgroundColor: "#d4eadb" }} />
+            </div>
+          )}
+
           <div className="relative">
-            {/* Vertical line */}
-            <div
-              className="absolute left-6 top-0 bottom-0 w-0.5"
-              style={{ backgroundColor: "#d4eadb" }}
-            />
+            <div className="absolute left-6 top-0 bottom-0 w-0.5" style={{ backgroundColor: "#d4eadb" }} />
 
             <div className="space-y-5">
-              {filtered.map((event) => {
+              {filtered.map((event, idx) => {
                 const s = statusConfig[event.status];
+                const isConventionStart = event.id === 9 && (activePhase === "All");
                 return (
-                  <div key={event.id} className="flex gap-5 items-start">
-                    {/* Timeline dot */}
-                    <div className="relative flex-shrink-0 z-10">
+                  <React.Fragment key={event.id}>
+                    {isConventionStart && (
+                      <div className="flex items-center gap-3 my-8 ml-16">
+                        <div className="px-4 py-1.5 rounded-full text-white text-xs font-bold" style={{ backgroundColor: "#C8A000" }}>
+                          SECTION B — CONVENTION PROPER
+                        </div>
+                        <div className="flex-1 h-px" style={{ backgroundColor: "#d4eadb" }} />
+                      </div>
+                    )}
+                    <div className="flex gap-5 items-start">
+                      {/* Timeline dot */}
+                      <div className="relative flex-shrink-0 z-10">
+                        <div
+                          className="w-12 h-12 rounded-full flex items-center justify-center border-2 border-white shadow"
+                          style={{
+                            backgroundColor:
+                              event.status === "ongoing"
+                                ? "#C8A000"
+                                : event.status === "completed"
+                                ? "#d1d5db"
+                                : event.id === 14
+                                ? "#C8A000"
+                                : "#008751",
+                          }}
+                        >
+                          {event.status === "completed" ? (
+                            <span className="text-white text-base">✓</span>
+                          ) : event.status === "ongoing" ? (
+                            <span className="text-white text-base animate-pulse">●</span>
+                          ) : event.id === 14 ? (
+                            <span className="text-white text-base">🗳</span>
+                          ) : (
+                            <span className="text-white text-sm font-bold">{event.id}</span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Card */}
                       <div
-                        className="w-12 h-12 rounded-full flex items-center justify-center border-2 border-white shadow"
+                        className={`flex-1 rounded-2xl border overflow-hidden mb-1 transition-all ${
+                          event.important ? "shadow-md" : "shadow-sm"
+                        }`}
                         style={{
-                          backgroundColor:
-                            event.status === "ongoing"
-                              ? "#C8A000"
-                              : event.status === "completed"
-                              ? "#d1d5db"
-                              : "#008751",
+                          borderColor: event.important ? s.dot + "80" : "#e0ede0",
+                          backgroundColor: "white",
                         }}
                       >
-                        {event.status === "completed" ? (
-                          <span className="text-white text-base">✓</span>
-                        ) : event.status === "ongoing" ? (
-                          <span className="text-white text-base animate-pulse">●</span>
-                        ) : (
-                          <span className="text-white text-base">○</span>
+                        {event.important && (
+                          <div className="h-1" style={{ backgroundColor: s.dot }} />
                         )}
-                      </div>
-                    </div>
-
-                    {/* Card */}
-                    <div
-                      className={`flex-1 rounded-2xl border overflow-hidden mb-1 transition-all ${
-                        event.important ? "shadow-md" : "shadow-sm"
-                      }`}
-                      style={{
-                        borderColor: event.important ? s.dot + "80" : "#e0ede0",
-                        backgroundColor: "white",
-                      }}
-                    >
-                      {event.important && (
-                        <div
-                          className="h-1"
-                          style={{ backgroundColor: s.dot }}
-                        />
-                      )}
-                      <div className="p-5">
-                        <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <span
-                              className="text-xs font-bold px-2 py-0.5 rounded-full"
-                              style={{ backgroundColor: s.badge, color: s.badgeText }}
-                            >
-                              {s.label}
-                            </span>
-                            <span
-                              className="text-xs px-2 py-0.5 rounded-full text-white font-medium"
-                              style={{ backgroundColor: "#008751" }}
-                            >
-                              {event.phase}
-                            </span>
-                            {event.important && (
+                        <div className="p-5">
+                          <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
+                            <div className="flex items-center gap-2 flex-wrap">
                               <span
-                                className="text-xs px-2 py-0.5 rounded-full font-bold"
-                                style={{ backgroundColor: "#fef9e7", color: "#C8A000" }}
+                                className="text-xs font-bold px-2 py-0.5 rounded-full"
+                                style={{ backgroundColor: s.badge, color: s.badgeText }}
                               >
-                                ★ Key Date
+                                {s.label}
                               </span>
-                            )}
+                              <span
+                                className="text-xs px-2 py-0.5 rounded-full text-white font-medium"
+                                style={{ backgroundColor: event.phase === "Convention" ? "#C8A000" : "#008751", color: event.phase === "Convention" ? "#1a1500" : "white" }}
+                              >
+                                {event.phase}
+                              </span>
+                              {event.important && (
+                                <span
+                                  className="text-xs px-2 py-0.5 rounded-full font-bold"
+                                  style={{ backgroundColor: "#fef9e7", color: "#C8A000" }}
+                                >
+                                  ★ Key Date
+                                </span>
+                              )}
+                            </div>
+                            <div className="text-right">
+                              <p className="text-sm font-bold text-gray-800">{event.date}</p>
+                              {event.endDate && (
+                                <p className="text-xs text-gray-400">to {event.endDate}</p>
+                              )}
+                              {event.time && (
+                                <p className="text-xs font-semibold mt-0.5" style={{ color: "#C8A000" }}>{event.time}</p>
+                              )}
+                            </div>
                           </div>
-                          <div className="text-right">
-                            <p className="text-sm font-bold text-gray-800">{event.date}</p>
-                            {event.endDate && (
-                              <p className="text-xs text-gray-400">to {event.endDate}</p>
-                            )}
-                          </div>
+                          <h3
+                            className="font-bold text-gray-900 mb-2"
+                            style={{ fontFamily: "'Crimson Pro', serif", fontSize: "1.1rem" }}
+                          >
+                            {event.title}
+                          </h3>
+                          <p className="text-gray-600 text-sm leading-relaxed">{event.description}</p>
                         </div>
-                        <h3
-                          className="font-bold text-gray-900 mb-2"
-                          style={{ fontFamily: "'Crimson Pro', serif", fontSize: "1.1rem" }}
-                        >
-                          {event.title}
-                        </h3>
-                        <p className="text-gray-600 text-sm leading-relaxed">{event.description}</p>
                       </div>
                     </div>
-                  </div>
+                  </React.Fragment>
                 );
               })}
             </div>
@@ -404,18 +430,69 @@ const ElectionSchedule: React.FC = () => {
         </div>
       </section>
 
+      {/* Required documents section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-8">
+            <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase mb-3" style={{ color: "#008751" }}>
+              Form Submission Requirements
+            </span>
+            <h2 className="text-3xl font-bold text-gray-900" style={{ fontFamily: "'Crimson Pro', serif" }}>
+              Required Documents for Submission
+            </h2>
+            <p className="text-gray-500 mt-2 max-w-xl">
+              All aspirants must submit the following documents alongside their completed forms between 8th – 10th April 2026.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {[
+              { num: "01", doc: "Original Aspirant Intent Form with Passport Photographs" },
+              { num: "02", doc: "Attestation of Studentship from the Dean of Students Affairs and Head of Department" },
+              { num: "03", doc: "Admission Letter" },
+              { num: "04", doc: "Last School Fees Receipt" },
+              { num: "05", doc: "Last Semester / Session Result" },
+              { num: "06", doc: "Police Clearance Certificate" },
+              { num: "07", doc: "Sworn Affidavit from the Federal High Court" },
+            ].map((item) => (
+              <div
+                key={item.num}
+                className="flex items-start gap-4 p-4 rounded-xl border bg-white hover:shadow-sm transition-all"
+                style={{ borderColor: "#d4eadb" }}
+              >
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
+                  style={{ backgroundColor: "#008751" }}
+                >
+                  {item.num}
+                </div>
+                <p className="text-gray-700 text-sm leading-relaxed pt-1">{item.doc}</p>
+              </div>
+            ))}
+          </div>
+          <div
+            className="mt-6 rounded-xl p-5 border-l-4"
+            style={{ borderLeftColor: "#C8A000", backgroundColor: "#fdfdf0" }}
+          >
+            <p className="font-bold text-gray-800 text-sm mb-1">⚠️ Important Notices</p>
+            <ul className="text-gray-600 text-sm space-y-1 leading-relaxed">
+              <li>• Forms must be signed, stamped, and endorsed by the Student Affairs Division of each institution.</li>
+              <li>• Submit through the Assistant Secretary General of NANS, who serves as the Chief Accreditation Officer.</li>
+              <li>• Aspirant Intent Forms are <strong>completely free of charge</strong> — no aspirant is expected to pay any amount to obtain them.</li>
+              <li>• <strong>Late submission will not be entertained under any circumstances</strong> — violation of the timeline results in automatic disqualification.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* Download notice */}
       <section className="py-10 bg-white border-t" style={{ borderColor: "#e5f0e5" }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
-            <h3
-              className="font-bold text-xl text-gray-900"
-              style={{ fontFamily: "'Crimson Pro', serif" }}
-            >
-              Download the Full Electoral Calendar
+            <h3 className="font-bold text-xl text-gray-900" style={{ fontFamily: "'Crimson Pro', serif" }}>
+              Download the Full Convention Timetable
             </h3>
             <p className="text-gray-500 text-sm mt-1">
-              Official PDF version of the 2026 NANS Electoral Calendar — issued by the Electoral Committee.
+              Official PDF version of the 2026 NANS ICPC Convention Timetable — issued 11th March 2026.
             </p>
           </div>
           <div className="flex gap-3">

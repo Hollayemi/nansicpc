@@ -26,7 +26,7 @@ const galleryItems: GalleryItem[] = [
     caption: "Delegates from all six geopolitical zones gather as the ICPC officially opens the 2026 NANS National Convention in Abuja.",
     category: "Convention",
     date: "July 15, 2026",
-    src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80",
+    src: "/images/gallery/1.jpeg",
     featured: true,
     size: "wide",
   },
@@ -36,7 +36,7 @@ const galleryItems: GalleryItem[] = [
     caption: "ICPC committee members conduct the official screening of presidential aspirants ahead of the convention.",
     category: "Convention",
     date: "June 18, 2026",
-    src: "https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=800&q=80",
+    src: "/images/gallery/2.jpeg",
     size: "tall",
   },
   {
@@ -45,7 +45,7 @@ const galleryItems: GalleryItem[] = [
     caption: "NANS NEC delegation meets the Honourable Minister of Education to present student welfare demands.",
     category: "Advocacy",
     date: "May 28, 2026",
-    src: "https://images.unsplash.com/photo-1503596476-1c12a8ba09a9?w=800&q=80",
+    src: "/images/gallery/3.jpeg",
   },
   {
     id: 4,
@@ -53,7 +53,7 @@ const galleryItems: GalleryItem[] = [
     caption: "Southwest zone hosts a landmark summit on student mental health, housing, and academic support systems.",
     category: "Welfare",
     date: "March 22, 2026",
-    src: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&q=80",
+    src: "/images/gallery/4.jpeg",
     size: "wide",
   },
   {
@@ -62,7 +62,7 @@ const galleryItems: GalleryItem[] = [
     caption: "Student delegates from over 200 institutions arrive for biometric accreditation ahead of election day.",
     category: "Convention",
     date: "July 12, 2026",
-    src: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=800&q=80",
+    src: "/images/chairman.jpeg",
   },
   {
     id: 6,
@@ -70,7 +70,7 @@ const galleryItems: GalleryItem[] = [
     caption: "A five-member NANS delegation represents Nigerian students at the 54th African Union Youth Council in Addis Ababa.",
     category: "Advocacy",
     date: "March 10, 2026",
-    src: "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=800&q=80",
+    src: "/images/chairman2.jpeg",
     size: "tall",
   },
   {

@@ -258,9 +258,9 @@ const Header: React.FC = () => {
               ICPC Convention Active
             </span>
             <span className="hidden sm:inline text-green-300">|</span>
-            <span>📧 info@nans.org.ng</span>
+            <span>📧 info@nanscpc.org</span>
             <span className="hidden sm:inline">|</span>
-            <span className="hidden sm:inline">📞 +234 (0) 800 NANS</span>
+            <span className="hidden sm:inline">📞 +234 806 007 3918</span>
           </div>
         </div>
       </div>

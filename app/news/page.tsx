@@ -1,8 +1,9 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Wrapper from "../components/wrapper";
+import { FaSearch, FaVideo } from "react-icons/fa";
 
 interface NewsArticle {
   id: number;
@@ -10,250 +11,486 @@ interface NewsArticle {
   excerpt: string;
   body: string;
   category: string;
+  link?: string;
   date: string;
+  image?: string;
+  videoUrl?: string; // New field for video content
+  videoThumbnail?: string; // Custom thumbnail for video
   author: string;
   readTime: string;
   featured?: boolean;
   tag: string;
   tagColor: string;
+  isVideo?: boolean; // Flag to identify video content
 }
 
 const articles: NewsArticle[] = [
   {
     id: 1,
-    title: "JCC Approves 2025 Electoral Guidelines — Voter Registration Opens June 20",
+    title: "NANS-ICPC FELICITATES WITH MUSLIM STUDENTS, ASPIRANTS ON EID-EL-FITR",
     excerpt:
-      "The NANS Joint Consultative Council, at its extraordinary session held in Abuja, has unanimously ratified the updated electoral guidelines for the 2025 General Election cycle.",
+      "The Independent Convention Planning Committee of the National Association of Nigerian Students (NANS-ICPC) heartily felicitates with all Muslim students across Nigeria, members of the student movement, and all aspirants in the forthcoming NANS National Convention on the successful completion of the holy month of Ramadan and the joyous celebration of Eid-el-Fitr.",
     body: "",
+    image: "/images/eid.jpg",
+    link: "#",
+    category: "Celebration",
+    date: "March 20, 2026",
+    author: "NANS-ICPC",
+    readTime: "4 min read",
+    featured: true,
+    tag: "Celebration",
+    tagColor: "#008751",
+    isVideo: false,
+  },
+  {
+    id: 1,
+    title: "New NANS leaders to emerge May 24",
+    excerpt:
+      "The National Association of Nigerian Students (NANS) has announced the commencement of the processes that would, expectedly, culminate in the emergence of new leaders for the Association.",
+    body: "",
+    image: "/logo.jpg",
+    link: "https://thesun.ng/new-nans-leaders-to-emerge-may-24/",
     category: "Elections",
-    date: "June 10, 2025",
-    author: "NANS Secretariat",
+    date: "March 13, 2026",
+    author: "Fred Ezeh",
     readTime: "4 min read",
     featured: true,
     tag: "ELECTIONS",
     tagColor: "#008751",
+    isVideo: false,
   },
   {
     id: 2,
-    title: "NANS Meets Honourable Minister on ASUU Strike Resolution & Tertiary Education Funding",
+    title: "Punch: NANS elects new president May 24",
+    image: "/icpc-logo.jpg",
     excerpt:
-      "The NANS National Executive Council held a high-level meeting with the Honourable Minister of Education to address outstanding ASUU grievances and the state of university infrastructure across Nigeria.",
+      "The National Association of Nigerian Students will elect a new president on May 24 during its 2026 national convention scheduled to hold in Abuja. The Chairman of the 2026 Independent Convention Planning Committee, Omotayo Samuel, disclosed this on Wednesday while briefing journalists in Abuja.",
     body: "",
     category: "Advocacy",
-    date: "May 28, 2025",
-    author: "NEC Communications Desk",
+    link: "https://punchng.com/nans-elects-new-president-may-24/",
+    date: "March 11, 2026",
+    author: "Deborah Tolu-Kolawole",
     readTime: "5 min read",
+    featured: true,
     tag: "ADVOCACY",
     tagColor: "#005c37",
+    isVideo: false,
   },
+  // New video news articles
   {
     id: 3,
-    title: "NANS-ICPC Anti-Corruption Vanguard Expands to 50 New Campuses Nationwide",
-    excerpt:
-      "The NANS-ICPC partnership programme has officially onboarded 50 additional tertiary institutions, bringing the total coverage to over 250 campuses across all six geopolitical zones.",
+    title: "NANS Inagurates Committee For NANS Election",
+    excerpt: "Official press briefing on the upcoming NANS national convention, featuring key stakeholders and electoral committee members.",
     body: "",
-    category: "ICPC",
-    date: "May 15, 2025",
-    author: "NANS-ICPC Desk",
-    readTime: "3 min read",
-    tag: "ICPC",
-    tagColor: "#C8A000",
+    videoUrl: "/videos/vid1.mp4",
+    videoThumbnail: "/thumbnails/Video1.jpg",
+    category: "Press Briefing",
+    date: "March 10, 2026",
+    author: "NANS Media",
+    readTime: "1:31 min watch",
+    featured: true,
+    tag: "VIDEO",
+    tagColor: "#FF6B6B",
+    isVideo: true,
   },
   {
     id: 4,
-    title: "NANS Student Welfare Summit 2025 — Registration Now Open for All Institutions",
-    excerpt:
-      "The annual NANS Student Welfare Summit brings together student union leaders, university management, government officials, and development partners to deliberate on pressing student welfare challenges.",
+    title: "Exclusive Interview: Presidential Aspirants Debate",
+    excerpt: "Watch the exclusive debate between leading NANS presidential aspirants discussing their manifestos and vision for Nigerian students.",
     body: "",
-    category: "Welfare",
-    date: "April 30, 2025",
-    author: "NANS Welfare Directorate",
-    readTime: "3 min read",
-    tag: "WELFARE",
-    tagColor: "#007a45",
+    videoUrl: "/videos/vid2.mp4",
+    videoThumbnail: "/thumbnails/Video2.jpg",
+    category: "Elections",
+    date: "March 8, 2026",
+    author: "NANS TV",
+    readTime: "2:36 min watch",
+    featured: true,
+    tag: "VIDEO",
+    tagColor: "#FF6B6B",
+    isVideo: true,
   },
   {
     id: 5,
-    title: "NANS Condemns Rise in Cultism and Campus Insecurity — Calls on FG to Act",
-    excerpt:
-      "In a strongly worded communiqué issued at the end of its NEC meeting, NANS has called on the Federal Government and institutional management to urgently address the surge in cult-related violence on Nigerian campuses.",
+    title: "NANS calls for Unity Ahead of Convention",
+    excerpt: "A documentary highlighting the recent achievements of NANS in advocating for students' rights across Nigerian institutions.",
     body: "",
-    category: "Security",
-    date: "April 18, 2025",
-    author: "NEC Communications Desk",
-    readTime: "4 min read",
-    tag: "SECURITY",
-    tagColor: "#7c3aed",
-  },
-  {
-    id: 6,
-    title: "NANS Applauds Federal Government's Student Loan Scheme — Urges Faster Disbursement",
-    excerpt:
-      "NANS has commended the Federal Government's Nigerian Education Loan Fund (NELFUND) initiative, while urging the relevant agencies to accelerate the disbursement process to remove bottlenecks affecting applicants.",
-    body: "",
-    category: "Policy",
-    date: "April 5, 2025",
-    author: "NANS Policy Desk",
-    readTime: "4 min read",
-    tag: "POLICY",
-    tagColor: "#0284c7",
-  },
-  {
-    id: 7,
-    title: "2025 NANS Presidential Aspirants Begin Filing — Four Candidates Emerge",
-    excerpt:
-      "With the opening of the nominations window, four aspirants have formally collected and submitted nomination forms for the presidential race. The Electoral Committee has confirmed receipt and commenced preliminary screening.",
-    body: "",
-    category: "Elections",
-    date: "June 2, 2025",
-    author: "Electoral Committee",
-    readTime: "3 min read",
-    tag: "ELECTIONS",
-    tagColor: "#008751",
-  },
-  {
-    id: 8,
-    title: "NANS Zone E Hosts Successful Zonal Summit on Student Mental Health",
-    excerpt:
-      "Zone E (Southwest) NANS held a groundbreaking summit focusing on mental health awareness, counselling resources, and support frameworks for students battling academic pressure and socioeconomic stress.",
-    body: "",
-    category: "Welfare",
-    date: "March 22, 2025",
-    author: "Zone E Secretariat",
-    readTime: "3 min read",
-    tag: "WELFARE",
-    tagColor: "#007a45",
-  },
-  {
-    id: 9,
-    title: "NANS Delegation Attends 54th AU Youth Council — Represents Nigerian Students on Global Stage",
-    excerpt:
-      "A five-member NANS delegation participated in the 54th African Union Youth Council meetings held in Addis Ababa, presenting a comprehensive report on the state of Nigerian student affairs and continental education advocacy priorities.",
-    body: "",
-    category: "International",
-    date: "March 10, 2025",
-    author: "NANS International Affairs",
-    readTime: "5 min read",
-    tag: "INTERNATIONAL",
-    tagColor: "#dc2626",
+    videoUrl: "/videos/vid3.mp4",
+    videoThumbnail: "/thumbnails/Video3.jpg",
+    category: "Advocacy",
+    date: "March 5, 2026",
+    author: "NANS Documentary",
+    readTime: "18 min watch",
+    featured: false,
+    tag: "VIDEO",
+    tagColor: "#FF6B6B",
+    isVideo: true,
   },
 ];
 
-const categories = ["All", "Elections", "Advocacy", "ICPC", "Welfare", "Security", "Policy", "International"];
+const VideoPlayer: React.FC<{ 
+  videoUrl: string; 
+  thumbnail?: string;
+  title: string;
+  onClose?: () => void;
+  autoPlay?: boolean;
+}> = ({ videoUrl, thumbnail, title, onClose, autoPlay = false }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showControls, setShowControls] = useState(true);
+  const controlsTimeout = useRef<NodeJS.Timeout | null>(null);
 
-const FeaturedCard: React.FC<{ article: NewsArticle }> = ({ article: a }) => (
-  <div
-    className="rounded-2xl overflow-hidden border shadow-md hover:shadow-xl transition-all group"
-    style={{ borderColor: "#d4eadb" }}
-  >
-    {/* Placeholder image area */}
-    <div
-      className="h-56 flex items-end p-6 relative overflow-hidden"
-      style={{
-        background: "linear-gradient(135deg, #008751 0%, #003d22 100%)",
-      }}
+  useEffect(() => {
+    if (videoRef.current) {
+      if (autoPlay) {
+        videoRef.current.play().catch(() => {
+          // Autoplay was prevented
+          setIsPlaying(false);
+        });
+      }
+    }
+  }, [autoPlay]);
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (videoRef.current) {
+      const progress = (videoRef.current.currentTime / videoRef.current.duration) * 100;
+      setProgress(progress);
+      setCurrentTime(videoRef.current.currentTime);
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (videoRef.current) {
+      setDuration(videoRef.current.duration);
+    }
+  };
+
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (videoRef.current) {
+      const time = (parseFloat(e.target.value) / 100) * videoRef.current.duration;
+      videoRef.current.currentTime = time;
+      setProgress(parseFloat(e.target.value));
+    }
+  };
+
+  const toggleFullscreen = () => {
+    if (videoRef.current) {
+      if (!isFullscreen) {
+        videoRef.current.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+      setIsFullscreen(!isFullscreen);
+    }
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const handleMouseMove = () => {
+    setShowControls(true);
+    if (controlsTimeout.current) {
+      clearTimeout(controlsTimeout.current);
+    }
+    controlsTimeout.current = setTimeout(() => {
+      if (isPlaying) {
+        setShowControls(false);
+      }
+    }, 3000);
+  };
+
+  return (
+    <div 
+      className="relative bg-black rounded-lg overflow-hidden group"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => isPlaying && setShowControls(false)}
     >
-      <div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(-45deg, white 0px, white 1px, transparent 1px, transparent 30px)",
-        }}
+      <video
+        ref={videoRef}
+        src={videoUrl}
+        poster={thumbnail}
+        className="w-full aspect-video"
+        onTimeUpdate={handleTimeUpdate}
+        onLoadedMetadata={handleLoadedMetadata}
+        onClick={togglePlay}
       />
-      <div
-        className="absolute right-6 top-6 text-white opacity-10 font-bold leading-none select-none"
-        style={{ fontSize: "80px", fontFamily: "'Crimson Pro',serif" }}
+      
+      {/* Video Controls Overlay */}
+      <div 
+        className={`absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent transition-opacity duration-300 ${
+          showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
       >
-        NANS
-      </div>
-      <div className="relative z-10">
-        <span
-          className="text-xs font-bold px-2.5 py-1 rounded-full text-white mb-3 inline-block"
-          style={{ backgroundColor: "#C8A000" }}
-        >
-          ★ FEATURED
-        </span>
-        <span
-          className="text-xs font-bold px-2.5 py-1 rounded-full text-white ml-2 inline-block"
-          style={{ backgroundColor: a.tagColor }}
-        >
-          {a.tag}
-        </span>
-      </div>
-    </div>
-    <div className="p-6 bg-white">
-      <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
-        <span>{a.date}</span>
-        <span>·</span>
-        <span>{a.readTime}</span>
-        <span>·</span>
-        <span>{a.author}</span>
-      </div>
-      <h2
-        className="font-bold text-gray-900 text-2xl mb-3 leading-snug group-hover:text-green-700 transition-colors"
-        style={{ fontFamily: "'Crimson Pro', serif" }}
-      >
-        {a.title}
-      </h2>
-      <p className="text-gray-500 text-sm leading-relaxed mb-4">{a.excerpt}</p>
-      <button
-        className="inline-flex items-center gap-2 text-sm font-semibold transition-all"
-        style={{ color: "#008751" }}
-      >
-        Read Full Article <span>→</span>
-      </button>
-    </div>
-  </div>
-);
-
-const NewsCard: React.FC<{ article: NewsArticle }> = ({ article: a }) => (
-  <div
-    className="bg-white rounded-2xl border overflow-hidden hover:shadow-md transition-all group flex flex-col"
-    style={{ borderColor: "#d4eadb" }}
-  >
-    <div
-      className="h-3"
-      style={{ backgroundColor: a.tagColor }}
-    />
-    <div className="p-5 flex-1 flex flex-col">
-      <div className="flex items-center justify-between mb-3">
-        <span
-          className="text-xs font-bold px-2.5 py-0.5 rounded-full text-white"
-          style={{ backgroundColor: a.tagColor }}
-        >
-          {a.tag}
-        </span>
-        <span className="text-xs text-gray-400">{a.date}</span>
-      </div>
-      <h3
-        className="font-bold text-gray-900 mb-2 leading-snug group-hover:text-green-700 transition-colors flex-1"
-        style={{ fontFamily: "'Crimson Pro', serif", fontSize: "1.05rem" }}
-      >
-        {a.title}
-      </h3>
-      <p className="text-gray-500 text-xs leading-relaxed mb-4">{a.excerpt}</p>
-      <div className="flex items-center justify-between mt-auto pt-3 border-t" style={{ borderColor: "#e9f0e9" }}>
-        <div className="flex items-center gap-2">
-          <div
-            className="w-6 h-6 rounded-full flex items-center justify-center text-white text-[9px] font-bold"
-            style={{ backgroundColor: a.tagColor }}
-          >
-            {a.author.slice(0, 1)}
-          </div>
-          <span className="text-xs text-gray-500 truncate max-w-[120px]">{a.author}</span>
+        {/* Top Bar */}
+        <div className="absolute top-0 left-0 right-0 p-4 flex items-center justify-between">
+          <span className="text-white text-sm font-medium truncate max-w-[70%]">
+            {title}
+          </span>
+          {onClose && (
+            <button
+              onClick={onClose}
+              className="text-white hover:text-gray-300 transition-colors"
+            >
+              <span className="text-xl">✕</span>
+            </button>
+          )}
         </div>
-        <span className="text-xs text-gray-400">{a.readTime}</span>
+
+        {/* Center Play Button (when paused) */}
+        {!isPlaying && (
+          <button
+            onClick={togglePlay}
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white/20 backdrop-blur rounded-full flex items-center justify-center hover:bg-white/30 transition-all"
+          >
+            <span className="text-white text-3xl">▶</span>
+          </button>
+        )}
+
+        {/* Bottom Controls */}
+        <div className="absolute bottom-0 left-0 right-0 p-4">
+          {/* Progress Bar */}
+          <div className="flex items-center gap-3 mb-2">
+            <span className="text-white text-xs">{formatTime(currentTime)}</span>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={progress}
+              onChange={handleSeek}
+              className="flex-1 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white"
+            />
+            <span className="text-white text-xs">{formatTime(duration)}</span>
+          </div>
+
+          {/* Control Buttons */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <button onClick={togglePlay} className="text-white hover:text-gray-300">
+                {isPlaying ? '⏸' : '▶'}
+              </button>
+              <button className="text-white hover:text-gray-300 text-sm">
+                🔈
+              </button>
+            </div>
+            <button onClick={toggleFullscreen} className="text-white hover:text-gray-300">
+              ⛶
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Video Quality Indicator */}
+      <div className="absolute top-4 right-4 bg-black/50 text-white text-xs px-2 py-1 rounded">
+        HD
       </div>
     </div>
-  </div>
-);
+  );
+};
+
+const VideoModal: React.FC<{
+  article: NewsArticle;
+  onClose: () => void;
+}> = ({ article, onClose }) => {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90">
+      <div className="relative w-full max-w-6xl">
+        <button
+          onClick={onClose}
+          className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors text-sm"
+        >
+          Close ✕
+        </button>
+        <VideoPlayer 
+          videoUrl={article.videoUrl!} 
+          thumbnail={article.videoThumbnail}
+          title={article.title}
+          autoPlay
+        />
+        <div className="mt-4 text-white">
+          <h3 className="text-xl font-bold mb-2">{article.title}</h3>
+          <p className="text-gray-300 text-sm">{article.excerpt}</p>
+          <div className="flex items-center gap-4 mt-3 text-sm text-gray-400">
+            <span>{article.date}</span>
+            <span>•</span>
+            <span>{article.author}</span>
+            <span>•</span>
+            <span>{article.readTime}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const FeaturedCard: React.FC<{ article: NewsArticle; onVideoClick?: (article: NewsArticle) => void }> = ({ 
+  article: a, 
+  onVideoClick 
+}) => {
+  const handleClick = () => {
+    if (a.isVideo && onVideoClick) {
+      onVideoClick(a);
+    } else if (a.link) {
+      window.open(a.link, '_blank');
+    }
+  };
+
+  return (
+    <div
+      className="rounded-2xl overflow-hidden border shadow-md hover:shadow-xl transition-all group cursor-pointer"
+      style={{ borderColor: "#d4eadb" }}
+      onClick={handleClick}
+    >
+      <div className="h-56 flex items-end p-6 relative overflow-hidden">
+        <img
+          src={a.isVideo ? a.videoThumbnail || a.image : a.image || "/placeholder.png"}
+          alt={a.title}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        
+        {/* Video Indicator Overlay */}
+        {a.isVideo && (
+          <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/40 transition-all">
+            <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+              <span className="text-3xl text-[#008751] ml-1">▶</span>
+            </div>
+          </div>
+        )}
+
+        <div className="relative z-10">
+          <span
+            className="text-xs font-bold px-2.5 py-1 rounded-full text-white mb-3 inline-block"
+            style={{ backgroundColor: "#C8A000" }}
+          >
+            ★ FEATURED
+          </span>
+          <span
+            className="text-xs font-bold px-2.5 py-1 rounded-full text-white ml-2 inline-block"
+            style={{ backgroundColor: a.isVideo ? "#FF6B6B" : a.tagColor }}
+          >
+            {a.isVideo ? "VIDEO" : a.tag}
+          </span>
+        </div>
+      </div>
+      <div className="p-6 bg-white">
+        <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
+          <span>{a.date}</span>
+          <span>·</span>
+          <span>{a.readTime}</span>
+          <span>·</span>
+          <span>{a.author}</span>
+        </div>
+        <h2
+          className="font-bold text-gray-900 text-2xl mb-3 leading-snug group-hover:text-green-700 transition-colors"
+          style={{ fontFamily: "'Crimson Pro', serif" }}
+        >
+          {a.title}
+        </h2>
+        <p className="text-gray-500 text-sm leading-relaxed mb-4">{a.excerpt}</p>
+        <span
+          className="inline-flex items-center gap-2 text-sm font-semibold transition-all text-[#008751]"
+        >
+          {a.isVideo ? 'Watch Video' : 'Read Full Article'} <span>→</span>
+        </span>
+      </div>
+    </div>
+  );
+};
+
+const NewsCard: React.FC<{ article: NewsArticle; onVideoClick?: (article: NewsArticle) => void }> = ({ 
+  article: a,
+  onVideoClick 
+}) => {
+  const handleClick = () => {
+    if (a.isVideo && onVideoClick) {
+      onVideoClick(a);
+    } else if (a.link) {
+      window.open(a.link, '_blank');
+    }
+  };
+
+  return (
+    <div
+      className="bg-white rounded-2xl border overflow-hidden hover:shadow-md transition-all group flex flex-col cursor-pointer"
+      style={{ borderColor: "#d4eadb" }}
+      onClick={handleClick}
+    >
+      {a.isVideo && a.videoThumbnail ? (
+        <div className="relative h-40 overflow-hidden">
+          <img 
+            src={a.videoThumbnail} 
+            alt={a.title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/40 transition-all">
+            <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center">
+              <span className="text-2xl text-[#008751] ml-1">▶</span>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="h-3" style={{ backgroundColor: a.isVideo ? "#FF6B6B" : a.tagColor }} />
+      )}
+      
+      <div className="p-5 flex-1 flex flex-col">
+        <div className="flex items-center justify-between mb-3">
+          <span
+            className="text-xs font-bold px-2.5 py-0.5 rounded-full text-white"
+            style={{ backgroundColor: a.isVideo ? "#FF6B6B" : a.tagColor }}
+          >
+            {a.isVideo ? "VIDEO" : a.tag}
+          </span>
+          <span className="text-xs text-gray-400">{a.date}</span>
+        </div>
+        <h3
+          className="font-bold text-gray-900 mb-2 leading-snug group-hover:text-green-700 transition-colors flex-1"
+          style={{ fontFamily: "'Crimson Pro', serif", fontSize: "1.05rem" }}
+        >
+          {a.title}
+        </h3>
+        <p className="text-gray-500 text-xs leading-relaxed mb-4 line-clamp-2">{a.excerpt}</p>
+        <div className="flex items-center justify-between mt-auto pt-3 border-t" style={{ borderColor: "#e9f0e9" }}>
+          <div className="flex items-center gap-2">
+            <div
+              className="w-6 h-6 rounded-full flex items-center justify-center text-white text-[9px] font-bold"
+              style={{ backgroundColor: a.isVideo ? "#FF6B6B" : a.tagColor }}
+            >
+              {a.author.slice(0, 1)}
+            </div>
+            <span className="text-xs text-gray-500 truncate max-w-[120px]">{a.author}</span>
+          </div>
+          <span className="text-xs text-gray-400">{a.readTime}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const News: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedVideo, setSelectedVideo] = useState<NewsArticle | null>(null);
+  const [showVideoLibrary, setShowVideoLibrary] = useState(false);
 
-  const featured = articles.find((a) => a.featured);
+  const featured = articles.filter((a) => a.featured);
   const rest = articles.filter((a) => !a.featured);
+  const videoArticles = articles.filter(a => a.isVideo);
 
   const filtered = rest.filter((a) => {
     const catMatch = activeCategory === "All" || a.category === activeCategory;
@@ -266,8 +503,18 @@ const News: React.FC = () => {
     return catMatch && searchMatch;
   });
 
+  const categories = ["All", ...new Set(articles.map((c) => c.category))];
+
   return (
     <Wrapper>
+      {/* Video Modal */}
+      {selectedVideo && (
+        <VideoModal 
+          article={selectedVideo} 
+          onClose={() => setSelectedVideo(null)} 
+        />
+      )}
+
       {/* Hero */}
       <section className="relative py-20 overflow-hidden" style={{ backgroundColor: "#008751" }}>
         <div
@@ -294,6 +541,23 @@ const News: React.FC = () => {
           <p className="text-green-100 text-lg max-w-xl leading-relaxed">
             Official announcements, press releases, advocacy updates, election news, and communiqués from NANS and its zonal bodies.
           </p>
+          
+          {/* Video Library Quick Access */}
+          {videoArticles.length > 0 && (
+            <div className="mt-8">
+              <button
+                onClick={() => setShowVideoLibrary(!showVideoLibrary)}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur rounded-lg text-white text-sm font-medium hover:bg-white/30 transition-all"
+              >
+                <span><FaVideo /></span>
+                Video Library ({videoArticles.length})
+                <span className={`transform transition-transform ${showVideoLibrary ? 'rotate-180' : ''}`}>
+                  ▼
+                </span>
+              </button>
+            </div>
+          )}
+          
           <div className="flex gap-2 mt-6 text-sm text-green-200">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
@@ -302,12 +566,56 @@ const News: React.FC = () => {
         </div>
       </section>
 
+      {/* Video Library Section */}
+      {showVideoLibrary && videoArticles.length > 0 && (
+        <section className="py-8 bg-white border-b" style={{ borderColor: "#e5f0e5" }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="font-bold text-gray-900 text-xl" style={{ fontFamily: "'Crimson Pro', serif" }}>
+                <FaVideo /> Video Library
+              </h2>
+              <button
+                onClick={() => setShowVideoLibrary(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {videoArticles.map((video) => (
+                <div
+                  key={video.id}
+                  onClick={() => setSelectedVideo(video)}
+                  className="group cursor-pointer"
+                >
+                  <div className="relative aspect-video rounded-lg overflow-hidden mb-2">
+                    <img 
+                      src={video.videoThumbnail || video.image} 
+                      alt={video.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/50 transition-all">
+                      <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center">
+                        <span className="text-2xl text-[#008751] ml-1">▶</span>
+                      </div>
+                    </div>
+                  </div>
+                  <h3 className="font-medium text-sm text-gray-900 group-hover:text-green-700 transition-colors line-clamp-2">
+                    {video.title}
+                  </h3>
+                  <p className="text-xs text-gray-400 mt-1">{video.readTime}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Search + Filter bar */}
       <section className="py-6 bg-white border-b sticky top-[83px] z-40" style={{ borderColor: "#e5f0e5" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-          {/* Search */}
           <div className="relative w-full sm:max-w-xs">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"><FaSearch /></span>
             <input
               type="text"
               placeholder="Search news..."
@@ -318,7 +626,6 @@ const News: React.FC = () => {
             />
           </div>
 
-          {/* Category chips */}
           <div className="flex flex-wrap gap-2">
             {categories.map((cat) => (
               <button
@@ -346,55 +653,22 @@ const News: React.FC = () => {
       <section className="py-16" style={{ backgroundColor: "#f8fdf9" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Featured story */}
-          {featured && (activeCategory === "All" || activeCategory === featured.category) && !searchQuery && (
+          {featured.length > 0 && (activeCategory === "All" || activeCategory === featured[0].category) && !searchQuery && (
             <div className="mb-12">
               <div className="flex items-center gap-3 mb-6">
-                <h2
-                  className="font-bold text-gray-700 text-sm uppercase tracking-widest"
-                >
+                <h2 className="font-bold text-gray-700 text-sm uppercase tracking-widest">
                   Featured Story
                 </h2>
                 <div className="flex-1 h-px" style={{ backgroundColor: "#d4eadb" }} />
               </div>
               <div className="grid lg:grid-cols-2 gap-6">
-                <FeaturedCard article={featured} />
-
-                {/* Side stories */}
-                <div className="space-y-4">
-                  {rest.slice(0, 3).map((a) => (
-                    <div
-                      key={a.id}
-                      className="bg-white rounded-xl border p-4 flex gap-4 hover:shadow-md transition-all group cursor-pointer"
-                      style={{ borderColor: "#d4eadb" }}
-                    >
-                      <div
-                        className="w-10 h-10 rounded-lg flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
-                        style={{ backgroundColor: a.tagColor }}
-                      >
-                        {a.tag.slice(0, 2)}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs text-gray-400 mb-1">{a.date}</p>
-                        <h4
-                          className="font-semibold text-gray-800 text-sm leading-snug group-hover:text-green-700 transition-colors line-clamp-2"
-                          style={{ fontFamily: "'Crimson Pro', serif" }}
-                        >
-                          {a.title}
-                        </h4>
-                        <span className="text-xs" style={{ color: a.tagColor }}>
-                          {a.category}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                  <Link
-                    href="#all-news"
-                    className="flex items-center justify-center gap-2 w-full py-2.5 text-sm font-semibold rounded-xl border transition-all hover:bg-green-50"
-                    style={{ borderColor: "#008751", color: "#008751" }}
-                  >
-                    View All Stories ↓
-                  </Link>
-                </div>
+                {featured.map((f) => (
+                  <FeaturedCard 
+                    key={f.id} 
+                    article={f} 
+                    onVideoClick={setSelectedVideo}
+                  />
+                ))}
               </div>
             </div>
           )}
@@ -412,7 +686,11 @@ const News: React.FC = () => {
             {filtered.length > 0 ? (
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {filtered.map((a) => (
-                  <NewsCard key={a.id} article={a} />
+                  <NewsCard 
+                    key={a.id} 
+                    article={a} 
+                    onVideoClick={setSelectedVideo}
+                  />
                 ))}
               </div>
             ) : (

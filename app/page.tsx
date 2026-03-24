@@ -70,10 +70,12 @@ const NewsItem: React.FC<{ tag: string; date: string; title: string; excerpt: st
 );
 
 const HERO_IMAGES = [
-  "/images/students1.jpg",
-  "/images/students2.jpg",
-  "/images/students3.jpg",
-  "/images/students4.jpg",
+  "/images/gallery/1.jpeg",
+  "/images/gallery/2.jpeg",
+  "/images/gallery/3.jpeg",
+  "/images/gallery/4.jpeg",
+  "/images/chairman.jpeg",
+  "/images/student.jpeg",
 ];
 
 const Home: React.FC = () => {
@@ -88,7 +90,7 @@ const Home: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const electionDate = new Date("2026-07-15T08:00:00");
+    const electionDate = new Date("2026-05-24T08:00:00");
     const tick = () => {
       const diff = electionDate.getTime() - Date.now();
       if (diff <= 0) return;
@@ -253,7 +255,7 @@ const Home: React.FC = () => {
                 </div>
                 <div className="text-center">
                   <p className="text-xs text-gray-500 mb-1">Convention Day</p>
-                  <p className="font-bold text-gray-800">July 15, 2026</p>
+                  <p className="font-bold text-gray-800">May 24, 2026</p>
                   <p className="text-xs text-gray-500">8:00 AM WAT</p>
                 </div>
                 <Link
@@ -458,16 +460,16 @@ Our goal is to ensure a transparent, credible, and well-coordinated convention t
               </h2>
               <div className="space-y-5">
                 <NewsItem
-                  tag="ICPC"
-                  date="June 10, 2026"
-                  title="ICPC Inaugurated — 2026 Convention Planning Officially Begins"
-                  excerpt="The NANS Independent Convention Planning Committee has been formally inaugurated. The committee has published the official electoral guidelines and opened the nominations window."
+                  tag="Election"
+                  date="March 11, 2026"
+                  title="New NANS leaders to emerge May 24"
+                  excerpt="The National Association of Nigerian Students (NANS) has announced the commencement of the processes that would, expectedly, culminate in the emergence of new leaders for the Association."
                 />
                 <NewsItem
-                  tag="EDU"
-                  date="May 28, 2026"
-                  title="NANS Meets Education Minister on ASUU Strike Resolution & Funding"
-                  excerpt="The NANS National Executive Council held a productive session with the Honourable Minister of Education on the resolution of outstanding ASUU issues."
+                  tag="Election"
+                  date="March 6, 2026"
+                  title="Punch: NANS elects new president May 24"
+                  excerpt="The National Association of Nigerian Students will elect a new president on May 24 during its 2026 national convention scheduled to hold in Abuja. The Chairman of the 2026 Independent Convention Planning Committee, Omotayo Samuel, disclosed this on Wednesday while briefing journalists in Abuja."
                 />
                 <NewsItem
                   tag="NOM"

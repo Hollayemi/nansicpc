@@ -128,26 +128,28 @@ const Footer: React.FC = () => {
                   borderBottom: "1px solid rgba(200,160,0,0.3)",
                 }}
               >
-                Contact NANS
+                Contact ICPC
               </h4>
               <ul className="space-y-4 text-sm">
                 <li className="flex gap-3">
                   <span style={{ color: "#008751" }} className="text-base flex-shrink-0">📍</span>
                   <span className="text-gray-400">
-                    NANS National Secretariat,<br />
-                    Plot 1005, Adekunle Fajuyi Way,<br />
-                    Garki II, Abuja, FCT.
+                    174 Ameh Ebute Street,<br />
+                    Wuye, Abuja FCT.
                   </span>
                 </li>
                 <li className="flex gap-3 items-center">
                   <span style={{ color: "#008751" }} className="flex-shrink-0">📧</span>
-                  <a href="mailto:info@nans.org.ng" className="text-gray-400 hover:text-white transition-colors">
-                    info@nans.org.ng
+                  <a href="mailto:info@nanscpc.org" className="text-gray-400 hover:text-white transition-colors">
+                    info@nanscpc.org
                   </a>
                 </li>
-                <li className="flex gap-3 items-center">
-                  <span style={{ color: "#008751" }} className="flex-shrink-0">📞</span>
-                  <span className="text-gray-400">+234 (0) 806 000 NANS</span>
+                <li className="flex gap-3">
+                  <span style={{ color: "#008751" }} className="flex-shrink-0 mt-0.5">📞</span>
+                  <div className="text-gray-400 space-y-1">
+                    <div>Chairman: <span className="text-white font-medium">+234 806 007 3918</span></div>
+                    <div>Secretary: <span className="text-white font-medium">+234 703 556 5638</span></div>
+                  </div>
                 </li>
                 <li className="flex gap-3 items-start">
                   <span style={{ color: "#008751" }} className="flex-shrink-0">🕐</span>
@@ -187,15 +189,19 @@ const Footer: React.FC = () => {
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row justify-between items-center gap-3">
             <p className="text-gray-500 text-xs text-center sm:text-left">
-              © {new Date().getFullYear()} National Association of Nigerian Students (NANS). All rights reserved.
+              © {new Date().getFullYear()} National Association of Nigerian Students (NANS), ICPC. All rights reserved.
             </p>
-            <div className="flex items-center gap-4 text-xs text-gray-600">
+            <p className="text-gray-600 text-xs text-center">
+              Powered by{" "}
+              <span className="text-green-400 font-semibold">Global Focus ICT Limited</span>
+            </p>
+            {/* <div className="flex items-center gap-4 text-xs text-gray-600">
               <a href="#" className="hover:text-gray-400 transition-colors">Privacy Policy</a>
               <span>|</span>
               <a href="#" className="hover:text-gray-400 transition-colors">Terms of Use</a>
               <span>|</span>
               <a href="#" className="hover:text-gray-400 transition-colors">Accessibility</a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

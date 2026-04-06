@@ -188,15 +188,15 @@ const Home: React.FC = () => {
               2026 NANS National Convention — Now Underway
             </div>
             <h1
-          className="text-5xl sm:text-6xl font-bold mb-4"
-          style={{ fontFamily: "'Crimson Pro', serif" }}
-        >
-          Independent
-          <br />
-          <span style={{ color: "#C8A000" }}>Convention</span>
-          <br />
-          Planning Committee
-        </h1>
+              className="text-5xl sm:text-6xl font-bold mb-4"
+              style={{ fontFamily: "'Crimson Pro', serif" }}
+            >
+              Independent
+              <br />
+              <span style={{ color: "#C8A000" }}>Convention</span>
+              <br />
+              Planning Committee
+            </h1>
             <p className="text-green-100 text-lg leading-relaxed mb-8 max-w-lg">
               Welcome to the Official Website of the NANS Independent Convention Planning Committee (ICPC)
 
@@ -313,8 +313,8 @@ const Home: React.FC = () => {
               <p className="text-gray-600 leading-relaxed mb-8">
                 This platform serves as the official digital hub for all activities related to the forthcoming NANS National Convention and elections. Through this website, stakeholders can access verified information on the election process, candidates, schedules, and official updates from the committee.
 
-Our goal is to ensure a transparent, credible, and well-coordinated convention that reflects the democratic ideals of Nigerian students.
-                 </p>
+                Our goal is to ensure a transparent, credible, and well-coordinated convention that reflects the democratic ideals of Nigerian students.
+              </p>
               <Link
                 href="/about"
                 className="inline-flex items-center gap-2 font-semibold text-sm transition-colors hover:gap-3"

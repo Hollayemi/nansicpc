@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { FaClock, FaEnvelope, FaMapPin, FaPhone } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   const quickLinks = [
@@ -15,11 +16,11 @@ const Footer: React.FC = () => {
 
   const zones = [
     "Zone A (Northwest)",
-    "Zone B (Northeast)",
+    "Zone B (Southsouth)",
     "Zone C (Northcentral)",
-    "Zone D (Southeast)",
-    "Zone E (Southwest)",
-    "Zone F (Southsouth)",
+    "Zone D (Southwest)",
+    "Zone E (Southeast)",
+    "Zone F (Southeast)",
   ];
 
   return (
@@ -132,27 +133,29 @@ const Footer: React.FC = () => {
               </h4>
               <ul className="space-y-4 text-sm">
                 <li className="flex gap-3">
-                  <span style={{ color: "#008751" }} className="text-base flex-shrink-0">📍</span>
+                  <span style={{ color: "#008751" }} className="text-base flex-shrink-0"><FaMapPin /></span>
                   <span className="text-gray-400">
-                    174 Ameh Ebute Street,<br />
+                    9th Floor, Federal Secretariat Complex Phase 1, Central Business Distict Abuja<br />
                     Wuye, Abuja FCT.
                   </span>
                 </li>
                 <li className="flex gap-3 items-center">
-                  <span style={{ color: "#008751" }} className="flex-shrink-0">📧</span>
+                  <span style={{ color: "#008751" }} className="flex-shrink-0"><FaEnvelope /></span>
                   <a href="mailto:info@nanscpc.org" className="text-gray-400 hover:text-white transition-colors">
                     info@nanscpc.org
                   </a>
                 </li>
                 <li className="flex gap-3">
-                  <span style={{ color: "#008751" }} className="flex-shrink-0 mt-0.5">📞</span>
+                  <span style={{ color: "#008751" }} className="flex-shrink-0 mt-0.5"><FaPhone /></span>
                   <div className="text-gray-400 space-y-1">
                     <div>Chairman: <span className="text-white font-medium">+234 806 007 3918</span></div>
                     <div>Secretary: <span className="text-white font-medium">+234 703 556 5638</span></div>
+                    <div>Consultant: <span className="text-white font-medium">+234 803 524 9508</span></div>
+                    <div>Consultant: <span className="text-white font-medium">+44 789 811 4294</span></div>
                   </div>
                 </li>
                 <li className="flex gap-3 items-start">
-                  <span style={{ color: "#008751" }} className="flex-shrink-0">🕐</span>
+                  <span style={{ color: "#008751" }} className="flex-shrink-0"><FaClock /></span>
                   <span className="text-gray-400">
                     Mon – Fri: 8:00am – 5:00pm<br />
                     <span className="text-green-500 text-xs">Closed on Public Holidays</span>

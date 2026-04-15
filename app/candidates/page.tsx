@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Wrapper from "../components/wrapper";
 import Link from "next/link";
+import { FaNoteSticky } from "react-icons/fa6";
 interface Candidate {
   id: number;
   name: string;
@@ -17,128 +18,7 @@ interface Candidate {
   color: string;
 }
 
-const candidates: Candidate[] = [
-  {
-    id: 1,
-    name: "Comrade Adewale Babatunde",
-    position: "president",
-    institution: "University of Lagos",
-    zone: "Zone E (Southwest)",
-    department: "Political Science",
-    level: "400 Level",
-    status: "cleared",
-    initials: "AB",
-    color: "#008751",
-    bio: "A seasoned student activist with 5 years of student union experience. Former NANS Southwest Coordinator and SUG President, University of Lagos. Passionate about accessible education and digital student governance.",
-    manifesto: [
-      "Free JAMB registration for all eligible Nigerians",
-      "Digital NANS governance transparent financial reporting portal",
-      "Student loan access advocacy with Federal Government",
-      "Emergency welfare fund for stranded and displaced students",
-      "NANS-industry partnership for student internships",
-    ],
-  },
-  {
-    id: 2,
-    name: "Comrade Ibrahim Musa Aliyu",
-    position: "president",
-    institution: "Ahmadu Bello University, Zaria",
-    zone: "Zone A (Northwest)",
-    department: "Law",
-    level: "500 Level (LLB)",
-    status: "cleared",
-    initials: "IM",
-    color: "#005c37",
-    bio: "A rights-based legal advocate and student organiser from ABU Zaria. Former NASU Zonal Secretary and pioneer of the ABU Campus Rights Legal Clinic. Committed to constitutional student governance.",
-    manifesto: [
-      "Constitutional review of NANS charter for greater transparency",
-      "Inter-zonal solidarity fund for students in conflict regions",
-      "Legal aid centres in all NANS zones",
-      "Mandatory financial audit of all student union accounts",
-      "NANS presence in NEEDS Assessment Committee",
-    ],
-  },
-  {
-    id: 3,
-    name: "Comrade Ngozi Adaeze Okonkwo",
-    position: "president",
-    institution: "University of Nigeria, Nsukka",
-    zone: "Zone D (Southeast)",
-    department: "Mass Communication",
-    level: "400 Level",
-    status: "cleared",
-    initials: "NO",
-    color: "#007a45",
-    bio: "A youth rights champion and communications expert. First female aspirant for NANS Presidency in a decade. Known for her media-driven student welfare campaigns and robust anti-corruption stance.",
-    manifesto: [
-      "50% female representation in all NANS committees",
-      "Mental health and counselling services in all NANS zones",
-      "Media literacy and fact-checking training across campuses",
-      "Gender-based violence reporting system for Nigerian campuses",
-      "NANS digital media presence upgrade verifiable information hub",
-    ],
-  },
-  {
-    id: 4,
-    name: "Comrade Usman Garba Tukur",
-    position: "president",
-    institution: "University of Maiduguri",
-    zone: "Zone B (Northeast)",
-    department: "Economics",
-    level: "400 Level",
-    status: "cleared",
-    initials: "UG",
-    color: "#006040",
-    bio: "Representing the resilient Northeast, Comrade Usman brings a unique perspective on student welfare in conflict-affected regions. Former NANS Zone B Treasurer and founder of the Campus Rebuilding Initiative.",
-    manifesto: [
-      "Special welfare package for students displaced by insecurity",
-      "Advocacy for Federal Government reconstruction of damaged institutions",
-      "Education Emergency Fund for Northeast and Northwest students",
-      "Quarterly NANS public accountability report",
-      "Collaboration with NGOs for campus safety infrastructure",
-    ],
-  },
-  {
-    id: 5,
-    name: "Comrade Emeka Chukwuemeka",
-    position: "senate",
-    institution: "Enugu State University of Science and Technology",
-    zone: "Zone D (Southeast)",
-    department: "Computer Science",
-    level: "400 Level",
-    status: "cleared",
-    initials: "EC",
-    color: "#008751",
-    bio: "A tech-forward student legislator with deep constitutional knowledge. Former NANS Senate Clerk and two-time student union speaker. Advocates for modernised student legislative processes.",
-    manifesto: [
-      "Digital NANS Senate, live-streamed sessions and e-voting",
-      "Codification of NANS Standing Orders into law",
-      "Senate Committee on Student Safety and Welfare",
-      "Annual NANS Constitutional Review Summit",
-      "Accountability office for NANS presidential appointees",
-    ],
-  },
-  {
-    id: 6,
-    name: "Comrade Rukayat Bello-Adekunle",
-    position: "senate",
-    institution: "Obafemi Awolowo University, Ile-Ife",
-    zone: "Zone E (Southwest)",
-    department: "Public Administration",
-    level: "400 Level",
-    status: "cleared",
-    initials: "RB",
-    color: "#005c37",
-    bio: "A governance expert and advocate for student rights. Former NANS Senate liaison officer and OAU SUG PRO. Her campaign focuses on institutional strengthening and gender equity in NANS governance.",
-    manifesto: [
-      "Gender parity bill in the NANS constitution",
-      "Senate oversight of all NANS zonal elections",
-      "Revision of NANS disciplinary procedures for fairness",
-      "Student Ombudsman office within NANS Senate",
-      "Annual report on Nigerian tertiary education quality",
-    ],
-  },
-];
+const candidates: Candidate[] = []
 
 const StatusBadge: React.FC<{ status: Candidate["status"] }> = ({ status }) => {
   const styles: Record<Candidate["status"], { bg: string; text: string; label: string }> = {
@@ -295,6 +175,15 @@ const Candidates: React.FC = () => {
             <span>/</span>
             <span className="text-white font-medium">Candidates</span>
           </div>
+          <Link
+            href="/candidates/form"
+            className="inline-flex mt-2 items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white transition-all hover:opacity-90 hover:scale-105 flex-shrink-0"
+            style={{ backgroundColor: "#C8A000", color: "#1a1500" }}
+          >
+            <FaNoteSticky />
+            Open Forms
+          </Link>
+          {/* </div> */}
         </div>
       </section>
 
@@ -309,16 +198,15 @@ const Candidates: React.FC = () => {
               <button
                 key={f}
                 onClick={() => setFilter(f)}
-                className={`px-5 py-2 text-sm font-semibold rounded-lg transition-all capitalize ${
-                  filter === f ? "text-white shadow" : "text-gray-600 hover:bg-gray-100"
-                }`}
+                className={`px-5 py-2 text-sm font-semibold rounded-lg transition-all capitalize ${filter === f ? "text-white shadow" : "text-gray-600 hover:bg-gray-100"
+                  }`}
                 style={filter === f ? { backgroundColor: "#008751" } : {}}
               >
                 {f === "all"
                   ? "All Candidates"
                   : f === "president"
-                  ? "Presidential"
-                  : "Senate President"}
+                    ? "Presidential"
+                    : "Senate President"}
               </button>
             ))}
           </div>

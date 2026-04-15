@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -219,7 +220,10 @@ export default function RootLayout({
         className={inter.className}
         style={{ fontFamily: "'DM Sans', sans-serif" }}
       >
-        {children}
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+          {children}
+        </Suspense>
+        {/* {children} */}
       </body>
     </html>
   );

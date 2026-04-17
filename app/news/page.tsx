@@ -26,6 +26,39 @@ interface NewsArticle {
 
 const articles: NewsArticle[] = [
   {
+    id: 8,
+    title: "OFFICIAL NOTICE: Nomination/Accreditation Forms Pick-Up Commences April 1st",
+    excerpt: "The I-CPC announces that pick-up of Nomination/Accreditation Forms for the 2026 NANS National Convention will commence Wednesday, April 1st to Tuesday, April 7th, 2026. All aspirants are to contact the I-CPC Secretary via 07035565638.",
+    body: `OFFICIAL NOTICE TO ALL ASPIRANTS AND THE GENERAL PUBLIC\n\nThis is to formally remind and inform all interested aspirants, stakeholders, and the general public that, in line with the timetable earlier released for the 2026 NANS National Convention, the pick-up of Nomination/Accreditation Forms will officially commence tomorrow, Wednesday 1st April 2026.\n\nThe exercise is scheduled to run from:\n\nWednesday, 1st April – Tuesday, 7th April 2026\n\nFurthermore, the Chairman of the I-CPC has directed that all aspirants are to contact the I-CPC Secretary for the collection of Nomination/Accreditation Forms within the stipulated period.\n\nThe I-CPC Secretary can be reached via: 07035565638 — through WhatsApp, SMS, or direct call.\n\nAll eligible aspirants are strongly advised to comply with this directive and obtain their forms promptly, as no extension may be granted after the deadline.\n\nThis process is a vital step towards ensuring a transparent, credible, and successful National Convention. Your cooperation is highly appreciated.\n\nTogether, we move towards a stronger and greater NANS.\n\nSigned:\n\nOmotayo Oladele Samuel (Dele Kenko)\nChairman\n2026 Independent Convention Planning Committee (I-CPC)\nNational Association of Nigerian Students (NANS)\n\nSuleiman Muhammad Sarki GCNS\nSecretary\n2026 Independent Convention Planning Committee (I-CPC)\nNational Association of Nigerian Students (NANS)`,
+    image: "/images/chairman.jpeg",
+    link: "/news/nomination-forms-2026",
+    category: "Elections",
+    date: "March 31, 2026",
+    author: "NANS I-CPC",
+    readTime: "2 min read",
+    featured: true,
+    tag: "OFFICIAL NOTICE",
+    tagColor: "#D32F2F",
+    isVideo: false,
+  },
+  {
+    id: 7,
+    title: "OFFICIAL NOTICE: Physical Screening of Aspirants for 2026 NANS National Convention",
+    excerpt:
+      "Following the successful completion of the Nomination/Accreditation Forms exercise, the Independent Convention Planning Committee announces the mandatory physical screening of all aspirants from April 12–19, 2026.",
+    body: `OFFICIAL NOTICE TO ALL ASPIRANTS AND THE GENERAL PUBLIC\n\n11th April, 2026\n\nThis is to formally inform all aspirants, stakeholders, and the general public that, following the successful completion of the Nomination/Accreditation Forms exercise as outlined in the timetable for the 2026 NANS National Convention, the next phase of the process will commence accordingly.\n\nIn line with the approved schedule, the Physical Screening of Aspirants is slated to take place as follows:\n\nSunday, 12th April – Sunday, 19th April 2026\n\nAll aspirants are hereby directed to present themselves for the physical screening within the stipulated period. They are expected to come along with hardcopy of all relevant documents and credentials as required for verification.\n\nThis exercise is mandatory for all aspirants, and failure to appear for screening within the specified dates may lead to disqualification.\n\nThis stage remains critical in upholding the principles of transparency, credibility, and due process in the build-up to the 2026 NANS National Convention. All concerned are therefore urged to cooperate fully.\n\nTogether, we continue to build a stronger and more united NANS.\n\nSigned:\n\nOmotayo Oladele Samuel (Dele Kenko)\nChairman\n2026 Independent Convention Planning Committee (I-CPC)\nNational Association of Nigerian Students (NANS)\n\nSuleiman Muhammad Sarki GCNS\nSecretary\n2026 Independent Convention Planning Committee (I-CPC)\nNational Association of Nigerian Students (NANS)`,
+    image: "/images/vote1.jpg",
+    link: "/news/physical-screening-2026",
+    category: "Elections",
+    date: "April 11, 2026",
+    author: "NANS I-CPC",
+    readTime: "3 min read",
+    featured: true, // Set to false if you don't want it featured
+    tag: "OFFICIAL NOTICE",
+    tagColor: "#D32F2F",
+    isVideo: false,
+  },
+  {
     id: 1,
     title: "NANS-ICPC FELICITATES WITH MUSLIM STUDENTS, ASPIRANTS ON EID-EL-FITR",
     excerpt:
@@ -43,7 +76,7 @@ const articles: NewsArticle[] = [
     isVideo: false,
   },
   {
-    id: 1,
+    id: 2,
     title: "New NANS leaders to emerge May 24",
     excerpt:
       "The National Association of Nigerian Students (NANS) has announced the commencement of the processes that would, expectedly, culminate in the emergence of new leaders for the Association.",
@@ -60,7 +93,7 @@ const articles: NewsArticle[] = [
     isVideo: false,
   },
   {
-    id: 2,
+    id: 3,
     title: "Punch: NANS elects new president May 24",
     image: "/icpc-logo.jpg",
     excerpt:
@@ -76,10 +109,9 @@ const articles: NewsArticle[] = [
     tagColor: "#005c37",
     isVideo: false,
   },
-  // New video news articles
   {
-    id: 3,
-    title: "NANS Inagurates Committee For NANS Election",
+    id: 4,
+    title: "NANS Inaugurates Committee For NANS Election",
     excerpt: "Official press briefing on the upcoming NANS national convention, featuring key stakeholders and electoral committee members.",
     body: "",
     videoUrl: "/videos/vid1.mp4",
@@ -94,7 +126,7 @@ const articles: NewsArticle[] = [
     isVideo: true,
   },
   {
-    id: 4,
+    id: 5,
     title: "Exclusive Interview: Presidential Aspirants Debate",
     excerpt: "Watch the exclusive debate between leading NANS presidential aspirants discussing their manifestos and vision for Nigerian students.",
     body: "",
@@ -110,7 +142,7 @@ const articles: NewsArticle[] = [
     isVideo: true,
   },
   {
-    id: 5,
+    id: 6,
     title: "NANS calls for Unity Ahead of Convention",
     excerpt: "A documentary highlighting the recent achievements of NANS in advocating for students' rights across Nigerian institutions.",
     body: "",
@@ -125,10 +157,11 @@ const articles: NewsArticle[] = [
     tagColor: "#FF6B6B",
     isVideo: true,
   },
+
 ];
 
-const VideoPlayer: React.FC<{ 
-  videoUrl: string; 
+const VideoPlayer: React.FC<{
+  videoUrl: string;
   thumbnail?: string;
   title: string;
   onClose?: () => void;
@@ -217,7 +250,7 @@ const VideoPlayer: React.FC<{
   };
 
   return (
-    <div 
+    <div
       className="relative bg-black rounded-lg overflow-hidden group"
       onMouseMove={handleMouseMove}
       onMouseLeave={() => isPlaying && setShowControls(false)}
@@ -231,12 +264,11 @@ const VideoPlayer: React.FC<{
         onLoadedMetadata={handleLoadedMetadata}
         onClick={togglePlay}
       />
-      
+
       {/* Video Controls Overlay */}
-      <div 
-        className={`absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent transition-opacity duration-300 ${
-          showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
+      <div
+        className={`absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
       >
         {/* Top Bar */}
         <div className="absolute top-0 left-0 right-0 p-4 flex items-center justify-between">
@@ -317,8 +349,8 @@ const VideoModal: React.FC<{
         >
           Close ✕
         </button>
-        <VideoPlayer 
-          videoUrl={article.videoUrl!} 
+        <VideoPlayer
+          videoUrl={article.videoUrl!}
           thumbnail={article.videoThumbnail}
           title={article.title}
           autoPlay
@@ -339,9 +371,9 @@ const VideoModal: React.FC<{
   );
 };
 
-const FeaturedCard: React.FC<{ article: NewsArticle; onVideoClick?: (article: NewsArticle) => void }> = ({ 
-  article: a, 
-  onVideoClick 
+const FeaturedCard: React.FC<{ article: NewsArticle; onVideoClick?: (article: NewsArticle) => void }> = ({
+  article: a,
+  onVideoClick
 }) => {
   const handleClick = () => {
     if (a.isVideo && onVideoClick) {
@@ -363,7 +395,7 @@ const FeaturedCard: React.FC<{ article: NewsArticle; onVideoClick?: (article: Ne
           alt={a.title}
           className="absolute inset-0 w-full h-full object-cover"
         />
-        
+
         {/* Video Indicator Overlay */}
         {a.isVideo && (
           <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/40 transition-all">
@@ -413,9 +445,9 @@ const FeaturedCard: React.FC<{ article: NewsArticle; onVideoClick?: (article: Ne
   );
 };
 
-const NewsCard: React.FC<{ article: NewsArticle; onVideoClick?: (article: NewsArticle) => void }> = ({ 
+const NewsCard: React.FC<{ article: NewsArticle; onVideoClick?: (article: NewsArticle) => void }> = ({
   article: a,
-  onVideoClick 
+  onVideoClick
 }) => {
   const handleClick = () => {
     if (a.isVideo && onVideoClick) {
@@ -433,8 +465,8 @@ const NewsCard: React.FC<{ article: NewsArticle; onVideoClick?: (article: NewsAr
     >
       {a.isVideo && a.videoThumbnail ? (
         <div className="relative h-40 overflow-hidden">
-          <img 
-            src={a.videoThumbnail} 
+          <img
+            src={a.videoThumbnail}
             alt={a.title}
             className="w-full h-full object-cover"
           />
@@ -447,7 +479,7 @@ const NewsCard: React.FC<{ article: NewsArticle; onVideoClick?: (article: NewsAr
       ) : (
         <div className="h-3" style={{ backgroundColor: a.isVideo ? "#FF6B6B" : a.tagColor }} />
       )}
-      
+
       <div className="p-5 flex-1 flex flex-col">
         <div className="flex items-center justify-between mb-3">
           <span
@@ -509,9 +541,9 @@ const News: React.FC = () => {
     <Wrapper>
       {/* Video Modal */}
       {selectedVideo && (
-        <VideoModal 
-          article={selectedVideo} 
-          onClose={() => setSelectedVideo(null)} 
+        <VideoModal
+          article={selectedVideo}
+          onClose={() => setSelectedVideo(null)}
         />
       )}
 
@@ -541,7 +573,7 @@ const News: React.FC = () => {
           <p className="text-green-100 text-lg max-w-xl leading-relaxed">
             Official announcements, press releases, advocacy updates, election news, and communiqués from NANS and its zonal bodies.
           </p>
-          
+
           {/* Video Library Quick Access */}
           {videoArticles.length > 0 && (
             <div className="mt-8">
@@ -557,7 +589,7 @@ const News: React.FC = () => {
               </button>
             </div>
           )}
-          
+
           <div className="flex gap-2 mt-6 text-sm text-green-200">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
@@ -589,8 +621,8 @@ const News: React.FC = () => {
                   className="group cursor-pointer"
                 >
                   <div className="relative aspect-video rounded-lg overflow-hidden mb-2">
-                    <img 
-                      src={video.videoThumbnail || video.image} 
+                    <img
+                      src={video.videoThumbnail || video.image}
                       alt={video.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
@@ -631,11 +663,10 @@ const News: React.FC = () => {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-3.5 py-1.5 text-xs font-semibold rounded-full border transition-all ${
-                  activeCategory === cat
+                className={`px-3.5 py-1.5 text-xs font-semibold rounded-full border transition-all ${activeCategory === cat
                     ? "text-white border-transparent"
                     : "text-gray-600 border-gray-200 hover:border-green-300"
-                }`}
+                  }`}
                 style={
                   activeCategory === cat
                     ? { backgroundColor: "#008751", borderColor: "#008751" }
@@ -663,9 +694,9 @@ const News: React.FC = () => {
               </div>
               <div className="grid lg:grid-cols-2 gap-6">
                 {featured.map((f) => (
-                  <FeaturedCard 
-                    key={f.id} 
-                    article={f} 
+                  <FeaturedCard
+                    key={f.id}
+                    article={f}
                     onVideoClick={setSelectedVideo}
                   />
                 ))}
@@ -686,9 +717,9 @@ const News: React.FC = () => {
             {filtered.length > 0 ? (
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {filtered.map((a) => (
-                  <NewsCard 
-                    key={a.id} 
-                    article={a} 
+                  <NewsCard
+                    key={a.id}
+                    article={a}
                     onVideoClick={setSelectedVideo}
                   />
                 ))}

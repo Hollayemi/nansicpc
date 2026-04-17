@@ -33,11 +33,13 @@ const navItems: NavItem[] = [
   // },
   {
     name: "Elections",
-    children: [
-      { name: "Election Overview", path: "/election-overview", description: "Rules, process & eligibility" },
-      { name: "Candidates", path: "/candidates", description: "Presidential & Senate profiles" },
-      { name: "Election Schedule", path: "/election-schedule", description: "Full electoral calendar" },
-    ],
+  children: [
+  { name: "Election Overview", path: "/election-overview", description: "Rules, process & eligibility" },
+  { name: "Candidates", path: "/candidates", description: "Presidential & Senate profiles" },
+  { name: "Election Schedule", path: "/election-schedule", description: "Full electoral calendar" },
+  { name: "Accreditation", path: "/accreditation", description: "Observer & media accreditation process" },
+  { name: "Delegates", path: "/delegates", description: "Delegate allocation & voting rules" },
+]
   },
   {
     name: "Media",

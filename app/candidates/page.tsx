@@ -3,10 +3,12 @@ import React, { useState } from "react";
 import Wrapper from "../components/wrapper";
 import Link from "next/link";
 import { FaNoteSticky } from "react-icons/fa6";
+
 interface Candidate {
   id: number;
   name: string;
-  position: "president" | "senate";
+  position: string; // e.g., "National President", "Senate President", etc.
+  positionCategory: "executive" | "senate_secretariat";
   institution: string;
   zone: string;
   department: string;
@@ -18,7 +20,61 @@ interface Candidate {
   color: string;
 }
 
-const candidates: Candidate[] = []
+// All executive positions from NANS Constitution Article 9
+const EXECUTIVE_POSITIONS = [
+  "National President",
+  "Vice President (National Affairs)",
+  "Vice President (External Affairs)",
+  "Vice President (Special Duties)",
+  "Vice President (Inter Campus Affairs)",
+  "Secretary-General",
+  "Assistant Secretary-General",
+  "Financial Secretary",
+  "Public Relations Officer",
+  "Treasurer",
+  "Director of Travels and Exchange",
+  "Director of Sports",
+  "Director of Action and Mobilization",
+  "Ex-Officio 1 (Non-Elective)",
+  "Ex-Officio 2 (Female)",
+];
+
+// Senate Secretariat Positions
+const SENATE_SECRETARIAT_POSITIONS = [
+  "Senate President",
+  "Deputy Senate President",
+  "Clerk of the House",
+];
+
+// Position color mapping (keep original colors for President/Senate President)
+const getPositionColor = (position: string): string => {
+  if (position === "National President") return "#C8A000";
+  if (position === "Senate President") return "#C8A000";
+  if (EXECUTIVE_POSITIONS.slice(1, 5).includes(position)) return "#008751";
+  if (EXECUTIVE_POSITIONS.slice(5, 10).includes(position)) return "#4b5563";
+  if (EXECUTIVE_POSITIONS.slice(10, 13).includes(position)) return "#6B21A5";
+  return "#9E9E9E";
+};
+
+const candidates: Candidate[] = [
+  // Add your candidate data here
+  // Example:
+  // {
+  //   id: 1,
+  //   name: "John Doe",
+  //   position: "National President",
+  //   positionCategory: "executive",
+  //   institution: "University of Lagos",
+  //   zone: "South West",
+  //   department: "Political Science",
+  //   level: "400 Level",
+  //   status: "cleared",
+  //   manifesto: ["Point 1", "Point 2"],
+  //   bio: "Bio text here...",
+  //   initials: "JD",
+  //   color: "#C8A000",
+  // },
+];
 
 const StatusBadge: React.FC<{ status: Candidate["status"] }> = ({ status }) => {
   const styles: Record<Candidate["status"], { bg: string; text: string; label: string }> = {
@@ -45,11 +101,9 @@ const CandidateCard: React.FC<{ candidate: Candidate }> = ({ candidate: c }) => 
       className="bg-white rounded-2xl border overflow-hidden hover:shadow-lg transition-all"
       style={{ borderColor: "#d4eadb" }}
     >
-      {/* Color top stripe */}
       <div className="h-1.5" style={{ backgroundColor: c.color }} />
 
       <div className="p-6">
-        {/* Header */}
         <div className="flex items-start gap-4 mb-4">
           <div
             className="w-16 h-16 rounded-2xl flex items-center justify-center text-white text-xl font-bold flex-shrink-0"
@@ -68,15 +122,14 @@ const CandidateCard: React.FC<{ candidate: Candidate }> = ({ candidate: c }) => 
               <StatusBadge status={c.status} />
               <span
                 className="text-xs px-2 py-0.5 rounded-full font-semibold text-white"
-                style={{ backgroundColor: c.position === "president" ? "#C8A000" : "#4b5563" }}
+                style={{ backgroundColor: c.color }}
               >
-                {c.position === "president" ? "Presidential" : "Senate Pres."}
+                {c.position === "National President" ? "Presidential" : c.position === "Senate President" ? "Senate Pres." : c.position}
               </span>
             </div>
           </div>
         </div>
 
-        {/* Details */}
         <div
           className="rounded-xl p-4 space-y-2 mb-4"
           style={{ backgroundColor: "#f8fdf9" }}
@@ -94,10 +147,8 @@ const CandidateCard: React.FC<{ candidate: Candidate }> = ({ candidate: c }) => 
           ))}
         </div>
 
-        {/* Bio */}
         <p className="text-gray-600 text-sm leading-relaxed mb-4">{c.bio}</p>
 
-        {/* Manifesto toggle */}
         <button
           onClick={() => setExpanded((v) => !v)}
           className="flex items-center gap-2 text-sm font-semibold transition-colors mb-3"
@@ -116,8 +167,8 @@ const CandidateCard: React.FC<{ candidate: Candidate }> = ({ candidate: c }) => 
               Campaign Priorities
             </p>
             <ul className="space-y-2">
-              {c.manifesto.map((point) => (
-                <li key={point} className="flex items-start gap-2 text-sm text-gray-700">
+              {c.manifesto.map((point, idx) => (
+                <li key={idx} className="flex items-start gap-2 text-sm text-gray-700">
                   <span
                     className="w-5 h-5 rounded-full flex items-center justify-center text-white text-[9px] flex-shrink-0 mt-0.5"
                     style={{ backgroundColor: "#008751" }}
@@ -136,19 +187,32 @@ const CandidateCard: React.FC<{ candidate: Candidate }> = ({ candidate: c }) => 
 };
 
 const Candidates: React.FC = () => {
-  const [filter, setFilter] = useState<"all" | "president" | "senate">("all");
+  const [filter, setFilter] = useState<"all" | "executive" | "senate_secretariat">("all");
 
-  const filtered =
-    filter === "all"
-      ? candidates
-      : candidates.filter((c) => c.position === filter);
+  // Group candidates by position
+  const getCandidatesByPosition = (positionList: string[], category: "executive" | "senate_secretariat") => {
+    const positionMap: Record<string, Candidate[]> = {};
+    positionList.forEach(pos => { positionMap[pos] = []; });
+    
+    candidates
+      .filter(c => c.positionCategory === category)
+      .forEach(candidate => {
+        if (positionMap[candidate.position]) {
+          positionMap[candidate.position].push(candidate);
+        }
+      });
+    
+    return positionMap;
+  };
 
-  const presidentialCandidates = candidates.filter((c) => c.position === "president");
-  const senateCandidates = candidates.filter((c) => c.position === "senate");
+  const executiveCandidatesByPosition = getCandidatesByPosition(EXECUTIVE_POSITIONS, "executive");
+  const senateCandidatesByPosition = getCandidatesByPosition(SENATE_SECRETARIAT_POSITIONS, "senate_secretariat");
+
+  const totalExecutiveCandidates = candidates.filter(c => c.positionCategory === "executive").length;
+  const totalSenateCandidates = candidates.filter(c => c.positionCategory === "senate_secretariat").length;
 
   return (
     <Wrapper>
-      {/* Hero */}
       <section className="relative py-20 overflow-hidden" style={{ backgroundColor: "#008751" }}>
         <div
           className="absolute inset-0 opacity-10"
@@ -166,9 +230,9 @@ const Candidates: React.FC = () => {
             Candidates
           </h1>
           <p className="text-green-100 text-lg max-w-xl leading-relaxed">
-            Meet the{" "}
-            <strong>{presidentialCandidates.length} Presidential</strong> and{" "}
-            <strong>{senateCandidates.length} Senate Presidential</strong> candidates contesting in the 2026 NANS General Election.
+            Meet the candidates contesting for{" "}
+            <strong>{EXECUTIVE_POSITIONS.length} Executive Positions</strong> and{" "}
+            <strong>{SENATE_SECRETARIAT_POSITIONS.length} Senate Secretariat Positions</strong> in the 2026 NANS General Election.
           </p>
           <div className="flex gap-2 mt-6 text-sm text-green-200">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
@@ -177,13 +241,12 @@ const Candidates: React.FC = () => {
           </div>
           <Link
             href="/candidates/form"
-            className="inline-flex mt-2 items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white transition-all hover:opacity-90 hover:scale-105 flex-shrink-0"
+            className="inline-flex mt-2 items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all hover:opacity-90 hover:scale-105 flex-shrink-0"
             style={{ backgroundColor: "#C8A000", color: "#1a1500" }}
           >
             <FaNoteSticky />
             Open Forms
           </Link>
-          {/* </div> */}
         </div>
       </section>
 
@@ -194,76 +257,114 @@ const Candidates: React.FC = () => {
             className="inline-flex gap-2 p-1.5 rounded-xl"
             style={{ backgroundColor: "#f0fdf4" }}
           >
-            {(["all", "president", "senate"] as const).map((f) => (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                className={`px-5 py-2 text-sm font-semibold rounded-lg transition-all capitalize ${filter === f ? "text-white shadow" : "text-gray-600 hover:bg-gray-100"
-                  }`}
-                style={filter === f ? { backgroundColor: "#008751" } : {}}
-              >
-                {f === "all"
-                  ? "All Candidates"
-                  : f === "president"
-                    ? "Presidential"
-                    : "Senate President"}
-              </button>
-            ))}
+            <button
+              onClick={() => setFilter("all")}
+              className={`px-5 py-2 text-sm font-semibold rounded-lg transition-all capitalize ${filter === "all" ? "text-white shadow" : "text-gray-600 hover:bg-gray-100"
+                }`}
+              style={filter === "all" ? { backgroundColor: "#008751" } : {}}
+            >
+              All Races
+            </button>
+            <button
+              onClick={() => setFilter("executive")}
+              className={`px-5 py-2 text-sm font-semibold rounded-lg transition-all capitalize ${filter === "executive" ? "text-white shadow" : "text-gray-600 hover:bg-gray-100"
+                }`}
+              style={filter === "executive" ? { backgroundColor: "#008751" } : {}}
+            >
+              Executive Council
+            </button>
+            <button
+              onClick={() => setFilter("senate_secretariat")}
+              className={`px-5 py-2 text-sm font-semibold rounded-lg transition-all capitalize ${filter === "senate_secretariat" ? "text-white shadow" : "text-gray-600 hover:bg-gray-100"
+                }`}
+              style={filter === "senate_secretariat" ? { backgroundColor: "#008751" } : {}}
+            >
+              Senate Secretariat
+            </button>
           </div>
           <p className="text-sm text-gray-500">
-            Showing <strong>{filtered.length}</strong> candidate{filtered.length !== 1 ? "s" : ""}
+            Total <strong>{candidates.length}</strong> candidate{candidates.length !== 1 ? "s" : ""} across all races
           </p>
         </div>
       </section>
 
-      {/* Candidates grid */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {(filter === "all" || filter === "president") && (
-            <div className="mb-14">
-              <div className="flex items-center gap-3 mb-8">
-                <div
-                  className="px-4 py-1.5 rounded-full text-white text-sm font-bold"
-                  style={{ backgroundColor: "#C8A000" }}
-                >
-                  Presidential Race
+      {/* Executive Council Races */}
+      {(filter === "all" || filter === "executive") && (
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {EXECUTIVE_POSITIONS.map((position) => {
+              const positionCandidates = executiveCandidatesByPosition[position] || [];
+              return (
+                <div key={position} className="mb-14">
+                  <div className="flex items-center gap-3 mb-8">
+                    <div
+                      className="px-4 py-1.5 rounded-full text-white text-sm font-bold"
+                      style={{ backgroundColor: getPositionColor(position) }}
+                    >
+                      {position}
+                    </div>
+                    <div className="flex-1 h-px" style={{ backgroundColor: "#e0ede0" }} />
+                    <span className="text-sm text-gray-400">
+                      {positionCandidates.length} Candidate{positionCandidates.length !== 1 ? "s" : ""}
+                    </span>
+                  </div>
+                  {positionCandidates.length > 0 ? (
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
+                      {positionCandidates.map((c) => (
+                        <CandidateCard key={c.id} candidate={c} />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-12 bg-gray-50 rounded-2xl border border-dashed" style={{ borderColor: "#d4eadb" }}>
+                      <p className="text-gray-400">No candidates declared yet for this position</p>
+                      <p className="text-sm text-gray-400 mt-1">Nominations are ongoing</p>
+                    </div>
+                  )}
                 </div>
-                <div className="flex-1 h-px" style={{ backgroundColor: "#e0ede0" }} />
-                <span className="text-sm text-gray-400">
-                  {presidentialCandidates.length} Candidates
-                </span>
-              </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
-                {presidentialCandidates.map((c) => (
-                  <CandidateCard key={c.id} candidate={c} />
-                ))}
-              </div>
-            </div>
-          )}
+              );
+            })}
+          </div>
+        </section>
+      )}
 
-          {(filter === "all" || filter === "senate") && (
-            <div>
-              <div className="flex items-center gap-3 mb-8">
-                <div
-                  className="px-4 py-1.5 rounded-full text-white text-sm font-bold"
-                  style={{ backgroundColor: "#4b5563" }}
-                >
-                  Senate Presidential Race
+      {/* Senate Secretariat Races */}
+      {(filter === "all" || filter === "senate_secretariat") && (
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {SENATE_SECRETARIAT_POSITIONS.map((position) => {
+              const positionCandidates = senateCandidatesByPosition[position] || [];
+              return (
+                <div key={position} className="mb-14">
+                  <div className="flex items-center gap-3 mb-8">
+                    <div
+                      className="px-4 py-1.5 rounded-full text-white text-sm font-bold"
+                      style={{ backgroundColor: getPositionColor(position) }}
+                    >
+                      {position}
+                    </div>
+                    <div className="flex-1 h-px" style={{ backgroundColor: "#e0ede0" }} />
+                    <span className="text-sm text-gray-400">
+                      {positionCandidates.length} Candidate{positionCandidates.length !== 1 ? "s" : ""}
+                    </span>
+                  </div>
+                  {positionCandidates.length > 0 ? (
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
+                      {positionCandidates.map((c) => (
+                        <CandidateCard key={c.id} candidate={c} />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-12 bg-gray-50 rounded-2xl border border-dashed" style={{ borderColor: "#d4eadb" }}>
+                      <p className="text-gray-400">No candidates declared yet for this position</p>
+                      <p className="text-sm text-gray-400 mt-1">Nominations are ongoing</p>
+                    </div>
+                  )}
                 </div>
-                <div className="flex-1 h-px" style={{ backgroundColor: "#e0ede0" }} />
-                <span className="text-sm text-gray-400">
-                  {senateCandidates.length} Candidates
-                </span>
-              </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
-                {senateCandidates.map((c) => (
-                  <CandidateCard key={c.id} candidate={c} />
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* Disclaimer */}
       <section className="py-10 border-t" style={{ borderColor: "#e5f0e5" }}>

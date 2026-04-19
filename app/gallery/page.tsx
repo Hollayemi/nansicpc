@@ -109,7 +109,7 @@ const galleryItems: GalleryItem[] = [
   },
   {
     id: 11,
-    title: "Zone D Southeast Cultural Showcase",
+    title: "Zone E Southeast Cultural Showcase",
     caption: "Southeast zone celebrates cultural heritage at the annual NANS inter-zone cultural exchange festival.",
     category: "Zones",
     date: "January 28, 2026",

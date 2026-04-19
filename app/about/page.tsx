@@ -240,14 +240,14 @@ const About: React.FC = () => (
               color: "#008751",
             },
             {
-              zone: "Zone D", region: "Southeast",
-              states: ["Enugu", "Anambra", "Imo", "Abia", "Ebonyi"],
-              color: "#009B5E",
-            },
-            {
-              zone: "Zone E", region: "Southwest",
+              zone: "Zone D", region: "Southwest",
               states: ["Lagos", "Oyo", "Osun", "Ekiti", "Ondo", "Ogun"],
               color: "#00A96A",
+            },
+            {
+              zone: "Zone E", region: "Southeast",
+              states: ["Enugu", "Anambra", "Imo", "Abia", "Ebonyi"],
+              color: "#009B5E",
             },
             {
               zone: "Zone F", region: "Southsouth",

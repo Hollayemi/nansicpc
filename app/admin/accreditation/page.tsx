@@ -9,8 +9,8 @@ const ZONES = [
   "Zone A (Northwest)",
   "Zone B (Northeast)",
   "Zone C (Northcentral)",
-  "Zone D (Southeast)",
-  "Zone E (Southwest)",
+  "Zone D (Southwest)",
+  "Zone E (Southeast)",
   "Zone F (Southsouth)",
 ];
 
@@ -18,8 +18,8 @@ const STATES_BY_ZONE: Record<string, string[]> = {
   "Zone A (Northwest)": ["Kano", "Kaduna", "Katsina", "Sokoto", "Kebbi", "Zamfara", "Jigawa"],
   "Zone B (Northeast)": ["Borno", "Adamawa", "Gombe", "Bauchi", "Yobe", "Taraba"],
   "Zone C (Northcentral)": ["FCT Abuja", "Plateau", "Benue", "Kogi", "Niger", "Nassarawa", "Kwara"],
-  "Zone D (Southeast)": ["Enugu", "Anambra", "Imo", "Abia", "Ebonyi"],
-  "Zone E (Southwest)": ["Lagos", "Oyo", "Osun", "Ekiti", "Ondo", "Ogun"],
+  "Zone D (Southwest)": ["Lagos", "Oyo", "Osun", "Ekiti", "Ondo", "Ogun"],
+  "Zone E (Southeast)": ["Enugu", "Anambra", "Imo", "Abia", "Ebonyi"],
   "Zone F (Southsouth)": ["Rivers", "Delta", "Akwa Ibom", "Cross River", "Bayelsa", "Edo"],
 };
 

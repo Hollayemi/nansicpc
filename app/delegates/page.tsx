@@ -9,8 +9,8 @@ const ZONES = [
   "Zone A (Northwest)",
   "Zone B (Northeast)",
   "Zone C (Northcentral)",
-  "Zone D (Southeast)",
-  "Zone E (Southwest)",
+  "Zone D (Southwest)",
+  "Zone E (Southeast)",
   "Zone F (Southsouth)",
 ];
 
@@ -18,8 +18,8 @@ const ZONE_COLORS: Record<string, string> = {
   "Zone A (Northwest)": "#006B3E",
   "Zone B (Northeast)": "#007A45",
   "Zone C (Northcentral)": "#008751",
-  "Zone D (Southeast)": "#009B5E",
-  "Zone E (Southwest)": "#00A96A",
+  "Zone D (Southwest)": "#00A96A",
+  "Zone E (Southeast)": "#009B5E",
   "Zone F (Southsouth)": "#00BF76",
 };
 

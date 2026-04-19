@@ -330,8 +330,8 @@ const Home: React.FC = () => {
                 { zone: "Zone A", region: "Northwest", states: "Kano, Kaduna, Sokoto..." },
                 { zone: "Zone B", region: "Northeast", states: "Borno, Adamawa, Gombe..." },
                 { zone: "Zone C", region: "Northcentral", states: "Abuja, Plateau, Benue..." },
-                { zone: "Zone D", region: "Southeast", states: "Enugu, Anambra, Imo..." },
-                { zone: "Zone E", region: "Southwest", states: "Lagos, Oyo, Osun..." },
+                { zone: "Zone D", region: "Southwest", states: "Lagos, Oyo, Osun..." },
+                { zone: "Zone E", region: "Southeast", states: "Enugu, Anambra, Imo..." },
                 { zone: "Zone F", region: "Southsouth", states: "Rivers, Delta, Akwa Ibom..." },
               ].map((z, i) => (
                 <div

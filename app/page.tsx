@@ -2,22 +2,30 @@
 import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "./components/wrapper";
 import Link from "next/link";
+import {
+  BiUser,
+  BiCalendar
+} from "react-icons/bi";
+import { FaVoteYea } from "react-icons/fa";
 
 const useCountUp = (target: number, duration = 2000) => {
   const [count, setCount] = useState(0);
-  const ref = useRef(false);
+
+  
   useEffect(() => {
-    if (ref.current) return;
-    ref.current = true;
     const start = Date.now();
+
     const tick = () => {
       const elapsed = Date.now() - start;
       const progress = Math.min(elapsed / duration, 1);
       setCount(Math.floor(progress * target));
+
       if (progress < 1) requestAnimationFrame(tick);
     };
+
     requestAnimationFrame(tick);
   }, [target, duration]);
+
   return count;
 };
 
@@ -282,7 +290,7 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <StatCard value={5000000} suffix="+" label="Student Members" delay={0} />
-            <StatCard value={200} suffix="+" label="Tertiary Institutions" delay={200} />
+            <StatCard value={370} suffix="+" label="Tertiary Institutions" delay={200} />
             <StatCard value={6} suffix="" label="Geopolitical Zones" delay={400} />
             <StatCard value={68} suffix="+" label="Years of Service" delay={600} />
           </div>
@@ -388,21 +396,21 @@ const Home: React.FC = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
-                icon: "🗳️",
+                icon: <FaVoteYea />,
                 title: "Election Overview",
                 desc: "Complete rules, process, eligibility criteria, and guidelines for the 2026 NANS Presidential Election.",
                 path: "/election-overview",
                 cta: "View Details",
               },
               {
-                icon: "👤",
+                icon: <BiUser />,
                 title: "Candidates",
                 desc: "Profiles of all contesting Presidential and Senate candidates, their manifestos and academic backgrounds.",
                 path: "/candidates",
                 cta: "View Candidates",
               },
               {
-                icon: "📅",
+                icon: <BiCalendar />,
                 title: "Election Schedule",
                 desc: "Full timeline of the electoral calendar from nomination to final declaration of results.",
                 path: "/election-schedule",

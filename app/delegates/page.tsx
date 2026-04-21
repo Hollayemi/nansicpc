@@ -27,6 +27,7 @@ interface Delegate {
   _id: string;
   fullName: string;
   institution: string;
+  passportPhotoUrl:string;
   position: string;
   zone: string;
   state: string;
@@ -34,14 +35,6 @@ interface Delegate {
   registeredAt: string;
 }
 
-function getInitials(name: string) {
-  return name
-    .split(" ")
-    .slice(0, 2)
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase();
-}
 
 const DelegateCard: React.FC<{ delegate: Delegate; index: number }> = ({ delegate: d, index }) => {
   const color = ZONE_COLORS[d.zone] ?? "#008751";
@@ -52,12 +45,12 @@ const DelegateCard: React.FC<{ delegate: Delegate; index: number }> = ({ delegat
     >
       <div className="h-1" style={{ backgroundColor: color }} />
       <div className="p-5 flex items-start gap-4">
-        <div
-          className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
-          style={{ background: `linear-gradient(135deg, ${color}, #002e1c)` }}
-        >
-          {getInitials(d.fullName)}
-        </div>
+        <img
+          src={d.passportPhotoUrl}
+          alt={d.fullName}
+          className="w-16 h-16 rounded-full object-cover border-2 border-white/40 flex-shrink-0 cursor-pointer hover:border-white transition-all"
+          title="Click to enlarge"
+        />
         <div className="flex-1 min-w-0">
           <p
             className="font-bold text-gray-900 leading-snug mb-0.5"

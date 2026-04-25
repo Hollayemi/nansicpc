@@ -4,15 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BiSearch, BiArrowBack } from "react-icons/bi";
 import { FaInbox } from "react-icons/fa";
+import { ZONES } from "@/app/components/data";
 
-const ZONES = [
-  "Zone A (Northwest)",
-  "Zone B (Northeast)",
-  "Zone C (Northcentral)",
-  "Zone D (Southwest)",
-  "Zone E (Southeast)",
-  "Zone F (Southsouth)",
-];
 
 interface Delegate {
   _id: string;

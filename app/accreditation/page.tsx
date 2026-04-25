@@ -454,13 +454,13 @@ const AccreditationPage: React.FC = () => {
                     nationalasgnans2025@gmail.com
                   </a>{" "}
                   or whatsapp <a
-                    href="https://wa.me/2348036098545?text=Dear%20NANS%20ASG%20Secretariat,%0A%0AI%20hope%20this%20message%20finds%20you%20well.%0A%0AI%20am%20writing%20in%20my%20capacity%20as%20the%20SUG%20President%20of%20[Your%20Institution%20Name]%20to%20formally%20request%20our%20institution%E2%80%99s%20accreditation%20code%20for%20the%20upcoming%20process.%0A%0AKindly%20provide%20the%20necessary%20code%20and%20any%20additional%20instructions%20required%20to%20complete%20the%20accreditation.%0A%0AThank%20you%20for%20your%20support.%0A%0AYours%20faithfully,%0A[Your%20Full%20Name]%0A[Your%20Institution%20Name]"
+                    href="https://wa.me/2348136098545?text=Dear%20NANS%20ASG%20Secretariat,%0A%0AI%20hope%20this%20message%20finds%20you%20well.%0A%0AI%20am%20writing%20in%20my%20capacity%20as%20the%20SUG%20President%20of%20[Your%20Institution%20Name]%20to%20formally%20request%20our%20institution%E2%80%99s%20accreditation%20code%20for%20the%20upcoming%20process.%0A%0AKindly%20provide%20the%20necessary%20code%20and%20any%20additional%20instructions%20required%20to%20complete%20the%20accreditation.%0A%0AThank%20you%20for%20your%20support.%0A%0AYours%20faithfully,%0A[Your%20Full%20Name]%0A[Your%20Institution%20Name]"
                     target="_blank"
                     className="font-semibold"
                     style={{ color: "#008751" }}
                     rel="noopener noreferrer"
                   >
-                    <strong>+234 803 609 8545</strong>
+                    <strong>+234 813 609 8545</strong>
                   </a>.
                 </div>
               </div>

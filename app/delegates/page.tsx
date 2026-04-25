@@ -4,23 +4,17 @@ import Wrapper from "../components/wrapper";
 import Link from "next/link";
 import { BiMapPin, BiSearch } from "react-icons/bi";
 import { RiSchoolFill } from "react-icons/ri";
+import { ZONES } from "../components/data";
 
-const ZONES = [
-  "Zone A (Northwest)",
-  "Zone B (Northeast)",
-  "Zone C (Northcentral)",
-  "Zone D (Southwest)",
-  "Zone E (Southeast)",
-  "Zone F (Southsouth)",
-];
+
 
 const ZONE_COLORS: Record<string, string> = {
   "Zone A (Northwest)": "#006B3E",
-  "Zone B (Northeast)": "#007A45",
+  "Zone B (Southsouth)": "#007A45",
   "Zone C (Northcentral)": "#008751",
   "Zone D (Southwest)": "#00A96A",
-  "Zone E (Southeast)": "#009B5E",
-  "Zone F (Southsouth)": "#00BF76",
+  "Zone E (Northeast)": "#009B5E",
+  "Zone F (Southeast)": "#00BF76",
 };
 
 interface Delegate {

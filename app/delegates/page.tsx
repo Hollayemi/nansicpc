@@ -190,7 +190,7 @@ const DelegatesPage: React.FC = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-5 bg-white border-b sticky top-[83px] z-40" style={{ borderColor: "#e5f0e5" }}>
+      <section className="py-5 hidden bg-white border-b sticky top-[83px] z-40" style={{ borderColor: "#e5f0e5" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center gap-4 justify-between">
           <div className="relative min-w-[240px]">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><BiSearch /></span>
@@ -238,7 +238,7 @@ const DelegatesPage: React.FC = () => {
       </section>
 
       {/* Grid */}
-      <section className="py-12" style={{ backgroundColor: "#f8fdf9" }}>
+      <section className="py-12 hidden" style={{ backgroundColor: "#f8fdf9" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {loading ? (
             <div className="py-20 text-center">

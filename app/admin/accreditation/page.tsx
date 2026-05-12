@@ -2,18 +2,18 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { BiSearch, BiCopy, BiCheck, BiArrowBack, BiArrowToRight } from "react-icons/bi";
+import { BiSearch, BiCopy, BiCheck, BiArrowBack, BiArrowToRight, BiRefresh } from "react-icons/bi";
 import { FaInbox } from "react-icons/fa";
 import { ZONES } from "@/app/components/data";
 
 
 const STATES_BY_ZONE: Record<string, string[]> = {
   "Zone A (Northwest)": ["Kano", "Kaduna", "Katsina", "Sokoto", "Kebbi", "Zamfara", "Jigawa"],
-  "Zone B (Northeast)": ["Borno", "Adamawa", "Gombe", "Bauchi", "Yobe", "Taraba"],
+  "Zone B (Southsouth)": ["Rivers", "Delta", "Akwa Ibom", "Cross River", "Bayelsa", "Edo"],
   "Zone C (Northcentral)": ["FCT Abuja", "Plateau", "Benue", "Kogi", "Niger", "Nassarawa", "Kwara"],
   "Zone D (Southwest)": ["Lagos", "Oyo", "Osun", "Ekiti", "Ondo", "Ogun"],
-  "Zone E (Southeast)": ["Enugu", "Anambra", "Imo", "Abia", "Ebonyi"],
-  "Zone F (Southsouth)": ["Rivers", "Delta", "Akwa Ibom", "Cross River", "Bayelsa", "Edo"],
+  "Zone E (Northeast)": ["Borno", "Adamawa", "Gombe", "Bauchi", "Yobe", "Taraba"],
+  "Zone F (Southeast)": ["Enugu", "Anambra", "Imo", "Abia", "Ebonyi"],
 };
 
 interface AccreditationCode {
@@ -28,6 +28,7 @@ interface AccreditationCode {
   usedAt: string | null;
 }
 
+/* ── Copy button ──────────────────────────────────────────────────────────── */
 const CopyButton: React.FC<{ text: string }> = ({ text }) => {
   const [copied, setCopied] = useState(false);
   const copy = async () => {
@@ -47,6 +48,179 @@ const CopyButton: React.FC<{ text: string }> = ({ text }) => {
   );
 };
 
+/* ── Regenerate confirm modal ─────────────────────────────────────────────── */
+const RegenerateModal: React.FC<{
+  code: AccreditationCode;
+  onClose: () => void;
+  onConfirm: () => Promise<void>;
+}> = ({ code, onClose, onConfirm }) => {
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<{ newCode: string } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  const handleConfirm = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`/api/accreditation/${code.code}`, { method: "POST" });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Regeneration failed");
+      setResult({ newCode: data.newCode });
+      await onConfirm();
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const copyNew = async () => {
+    if (result) {
+      await navigator.clipboard.writeText(result.newCode);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-[999] flex items-center justify-center p-4"
+      style={{ backgroundColor: "rgba(0,15,8,0.85)", backdropFilter: "blur(6px)" }}
+      onClick={!result ? onClose : undefined}
+    >
+      <div
+        className="relative w-full max-w-md rounded-2xl overflow-hidden shadow-2xl bg-white"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div
+          className="px-7 py-5 text-white"
+          style={{ background: result ? "linear-gradient(135deg, #005c37, #008751)" : "linear-gradient(135deg, #7c2d12, #b45309)" }}
+        >
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="text-xs mb-1" style={{ color: result ? "#86efac" : "#fcd34d" }}>
+                {result ? "Regeneration Successful" : "⚠️ Confirm Regeneration"}
+              </p>
+              <h2 className="font-bold text-xl" style={{ fontFamily: "'Crimson Pro', serif" }}>
+                {result ? "New Code Generated" : "Regenerate Accreditation Code"}
+              </h2>
+              {!result && (
+                <p className="text-sm mt-1" style={{ color: "#fcd34d" }}>
+                  This will permanently delete the registered delegate.
+                </p>
+              )}
+            </div>
+            <button
+              onClick={onClose}
+              className="w-8 h-8 rounded-full flex items-center justify-center text-white/60 hover:text-white hover:bg-white/20 transition-all"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+
+        <div className="p-7">
+          {result ? (
+            /* ── Success state ── */
+            <div className="text-center">
+              <div
+                className="w-16 h-16 rounded-full flex items-center justify-center text-white text-3xl mx-auto mb-4"
+                style={{ backgroundColor: "#008751" }}
+              >
+                ✓
+              </div>
+              <p className="text-gray-600 text-sm mb-5">
+                The old delegate record has been deleted. Share the new code with the institution's SUG president.
+              </p>
+              <div
+                className="rounded-2xl p-5 mb-5 border flex items-center justify-between gap-3"
+                style={{ borderColor: "#d4eadb", backgroundColor: "#f0fdf4" }}
+              >
+                <span
+                  className="font-mono text-2xl font-bold tracking-widest"
+                  style={{ color: "#008751", letterSpacing: "0.15em" }}
+                >
+                  {result.newCode}
+                </span>
+                <button
+                  onClick={copyNew}
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-bold rounded-xl text-white transition-all hover:opacity-90"
+                  style={{ backgroundColor: copied ? "#008751" : "#005c37" }}
+                >
+                  {copied ? <><BiCheck /> Copied!</> : <><BiCopy /> Copy</>}
+                </button>
+              </div>
+              <p className="text-xs text-gray-400 mb-5">Institution: <strong>{code.institution}</strong></p>
+              <button
+                onClick={onClose}
+                className="w-full py-2.5 text-sm font-bold text-white rounded-xl"
+                style={{ backgroundColor: "#008751" }}
+              >
+                Done
+              </button>
+            </div>
+          ) : (
+            /* ── Confirm state ── */
+            <div>
+              <div
+                className="rounded-xl p-4 mb-5 border"
+                style={{ borderColor: "#fed7aa", backgroundColor: "#fff7ed" }}
+              >
+                <p className="text-xs font-bold text-orange-700 mb-1">What will happen:</p>
+                <ul className="text-sm text-orange-800 space-y-1">
+                  <li>• The delegate registered with code <strong className="font-mono">{code.code}</strong> will be <strong>permanently deleted</strong></li>
+                  <li>• The old code will be removed from the system</li>
+                  <li>• A brand-new code will be generated for <strong>{code.institution}</strong></li>
+                  <li>• This action <strong>cannot be undone</strong></li>
+                </ul>
+              </div>
+
+              {error && (
+                <div className="mb-4 px-4 py-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm">
+                  {error}
+                </div>
+              )}
+
+              <div className="flex gap-3">
+                <button
+                  onClick={onClose}
+                  className="flex-1 py-2.5 text-sm font-semibold rounded-xl border"
+                  style={{ borderColor: "#d4eadb", color: "#374151" }}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleConfirm}
+                  disabled={loading}
+                  className="flex-1 py-2.5 text-sm font-bold text-white rounded-xl flex items-center justify-center gap-2 disabled:opacity-50"
+                  style={{ backgroundColor: "#b45309" }}
+                >
+                  {loading ? (
+                    <>
+                      <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                      </svg>
+                      Regenerating…
+                    </>
+                  ) : (
+                    <>
+                      <BiRefresh /> Confirm & Regenerate
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ── Generate modal ───────────────────────────────────────────────────────── */
 const GenerateModal: React.FC<{
   onClose: () => void;
   onSuccess: () => void;
@@ -277,6 +451,7 @@ const GenerateModal: React.FC<{
   );
 };
 
+/* ── Main page ────────────────────────────────────────────────────────────── */
 const AdminAccreditationPage: React.FC = () => {
   const router = useRouter();
   const [codes, setCodes] = useState<AccreditationCode[]>([]);
@@ -286,6 +461,7 @@ const AdminAccreditationPage: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState<"all" | "unused" | "used">("all");
   const [zoneFilter, setZoneFilter] = useState("all");
   const [showModal, setShowModal] = useState(false);
+  const [regenerateTarget, setRegenerateTarget] = useState<AccreditationCode | null>(null);
 
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
@@ -341,7 +517,7 @@ const AdminAccreditationPage: React.FC = () => {
             target="_blank"
             className="text-xs font-semibold px-3 flex gap-1 items-center py-1.5 rounded-lg text-white border border-white/30 hover:bg-white/10 transition-all"
           >
-            Public Delegates <BiArrowToRight /> 
+            Public Delegates <BiArrowToRight />
           </Link>
           <button
             onClick={handleLogout}
@@ -360,7 +536,7 @@ const AdminAccreditationPage: React.FC = () => {
               Accreditation Codes
             </h1>
             <p className="text-gray-500 text-sm mt-1">
-              Generate and manage delegate accreditation codes for university presidents
+              Generate and manage delegate accreditation codes. Used codes can be regenerated — this deletes the registered delegate and issues a fresh code.
             </p>
           </div>
           <button
@@ -470,7 +646,7 @@ const AdminAccreditationPage: React.FC = () => {
               <table className="w-full text-sm">
                 <thead>
                   <tr style={{ backgroundColor: "#f8fdf9", borderBottom: "1px solid #e0ede0" }}>
-                    {["#", "Code", "Institution", "Zone / State", "Assigned To", "Status", "Generated", "Used At"].map((h) => (
+                    {["#", "Code", "Institution", "Zone / State", "Assigned To", "Status", "Generated", "Used At", "Action"].map((h) => (
                       <th key={h} className="px-5 py-3.5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
                         {h}
                       </th>
@@ -526,6 +702,22 @@ const AdminAccreditationPage: React.FC = () => {
                           : <span className="text-gray-300">—</span>
                         }
                       </td>
+                      {/* ── Regenerate action ── */}
+                      <td className="px-5 py-4">
+                        {c.status === "used" ? (
+                          <button
+                            onClick={() => setRegenerateTarget(c)}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border transition-all hover:shadow-sm whitespace-nowrap"
+                            style={{ borderColor: "#b45309", color: "#b45309", backgroundColor: "#fff7ed" }}
+                            title="Delete delegate & regenerate a fresh code"
+                          >
+                            <BiRefresh size={13} />
+                            Regenerate
+                          </button>
+                        ) : (
+                          <span className="text-xs text-gray-300 px-3">—</span>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -542,10 +734,19 @@ const AdminAccreditationPage: React.FC = () => {
         </div>
       </div>
 
+      {/* Modals */}
       {showModal && (
         <GenerateModal
           onClose={() => setShowModal(false)}
           onSuccess={fetchCodes}
+        />
+      )}
+
+      {regenerateTarget && (
+        <RegenerateModal
+          code={regenerateTarget}
+          onClose={() => setRegenerateTarget(null)}
+          onConfirm={fetchCodes}
         />
       )}
     </div>
